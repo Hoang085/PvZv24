@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class PlantSlot : MonoBehaviour
 {
     public Sprite plantSprite;
     public GameObject plantObject;
+    
 
     public int price;
 
@@ -15,6 +17,8 @@ public class PlantSlot : MonoBehaviour
     public TextMeshProUGUI priceText;
 
     private GameManager gameManager;
+    private GameObject curPlant;
+
 
     private void Start()
     {
@@ -24,10 +28,8 @@ public class PlantSlot : MonoBehaviour
 
     public void BuyPlant()
     {
-        //Debug.Log("aaaa");
         gameManager.BuyPlant(plantObject, plantSprite);
         print("Buy plant");
-        //gameManager.BuyPlant(plantObject, plantSprite);
 
     }
 
@@ -45,4 +47,24 @@ public class PlantSlot : MonoBehaviour
         }
         
     }
+
+    /*public void OnDrag(PointerEventData eventData)
+    {
+        curPlant.transform.position = Input.mousePosition;
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        print("a");
+        Vector2 mousePos = new Vector2(-4, 4.5f);
+        curPlant = Instantiate(plantObject,mousePos, Quaternion.identity);
+        curPlant.transform.position = Input.mousePosition;
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        //Destroy(curPlant);
+    }*/
 }
+
+   
