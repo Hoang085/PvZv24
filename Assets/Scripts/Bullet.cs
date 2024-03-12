@@ -7,6 +7,10 @@ public class Bullet : MonoBehaviour
     public float Damage;
     private float Speed =0.8f;
 
+    private void Start()
+    {
+        Destroy(gameObject, 10);
+    }
     private void Update()
     {
         transform.position += new Vector3(Speed * Time.fixedDeltaTime, 0, 0);

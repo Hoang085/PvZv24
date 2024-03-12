@@ -4,17 +4,31 @@ using UnityEngine;
 
 public class Zombies : MonoBehaviour
 {
-    private float speed=0.008f;
+    private float speed=0.006f;
 
-    public float Health;
-    public float damage;
-    public float range;
-    public LayerMask plantMask;
-
-    private float eatCooldown=2f;
-
+    private float Health;
+    private float damage;
+    private float range;
+    private float eatCooldown;
     private bool canEat = true;
+    private AudioSource source;
+
     public Plant targetPlant;
+    public LayerMask plantMask;
+    public ZombieType type;
+    
+
+    private void Start()
+    {
+        source = GetComponent<AudioSource>();
+        Health = type.health;
+        speed = type.speed;
+        damage = type.damage;
+        range = type.range;
+        eatCooldown = type.eatCooldown;
+
+        GetComponent<SpriteRenderer>().sprite = type.sprite;
+    }
 
     private void Update()
     {
@@ -24,6 +38,10 @@ public class Zombies : MonoBehaviour
         {
             targetPlant = hit.collider.GetComponent<Plant>();
             Eat();
+        }
+        if (Health == 1)
+        {
+            GetComponent<SpriteRenderer>().sprite = type.deathSprite;
         }
     }
     void Eat()

@@ -24,8 +24,11 @@ public class PlantSlot : MonoBehaviour
 
     public void BuyPlant()
     {
-        Debug.Log("aaaa");
+        //Debug.Log("aaaa");
         gameManager.BuyPlant(plantObject, plantSprite);
+        print("Buy plant");
+        //gameManager.BuyPlant(plantObject, plantSprite);
+
     }
 
     private void OnValidate()

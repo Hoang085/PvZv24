@@ -1,10 +1,11 @@
+using PVZ.Utils;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : ManualSingletonMono<GameManager>
 {
 
     public GameObject currentPlant;
@@ -21,6 +22,10 @@ public class GameManager : MonoBehaviour
     {
         currentPlant = plant;
         currentPlantSprite = sprite;
+
+        Vector2 mousePos = Input.mousePosition;
+        Vector2 plantPos = Camera.main.WorldToScreenPoint(mousePos);
+        Instantiate(currentPlant, plantPos, Quaternion.identity);
     }
 
     private void Update()

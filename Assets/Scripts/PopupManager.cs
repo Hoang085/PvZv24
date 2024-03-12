@@ -26,4 +26,9 @@ public class PopupManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
+    public void SetVolume(float volume)
+    {
+        print("volume");
+    }
+
 }
