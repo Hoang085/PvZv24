@@ -10,8 +10,8 @@ public class Zombies : MonoBehaviour
     private float damage;
     private float range;
     private float eatCooldown;
-    private bool canEat = true;
     private AudioSource source;
+    private bool isStop = false;
 
     public Plant targetPlant;
     public LayerMask plantMask;
@@ -32,44 +32,64 @@ public class Zombies : MonoBehaviour
 
     private void Update()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, range, plantMask);
-
-        if (hit.collider)
-        {
-            targetPlant = hit.collider.GetComponent<Plant>();
-            Eat();
-        }
         if (Health == 1)
         {
             GetComponent<SpriteRenderer>().sprite = type.deathSprite;
         }
+        if(!targetPlant)
+        {
+            isStop = false;
+        }
+        
     }
-    void Eat()
-    {
-        if (!canEat || !targetPlant)
-            return;
-        canEat = false;
-        Invoke("resetEatCooldown", eatCooldown);
 
-        targetPlant.ReceiveDamage(damage);
-    }
-    void resetEatCooldown()
+    public void OnCollisionEnter2D(Collision2D other)
     {
-        canEat = true;
+        if(other.gameObject.layer == 9)
+        {
+            targetPlant = other.gameObject.GetComponent<Plant>();
+            StartCoroutine(Eat(other));
+            isStop = true;
+        }
     }
+
+    IEnumerator Eat(Collision2D other)
+    {
+        targetPlant.ReceiveDamage(damage);
+        yield return new WaitForSeconds(eatCooldown);
+        StartCoroutine(Eat(other));
+    }
+
 
     private void FixedUpdate()
     {
-        if(!targetPlant)
+        if(!isStop)
             transform.position -= new Vector3(speed, 0, 0); 
     }
 
-    public void ReceiveDamge(float Damage)
+    public void ReceiveDamge(float Damage, bool freeze)
     {
+        source.PlayOneShot(type.hitClips[Random.Range(0, type.hitClips.Length)]);
         Health -= Damage;
+        if (freeze)
+        {
+            Freeze();
+        }
         if(Health <= 0) 
         {
             Destroy(gameObject);
         }
+    }
+    void Freeze()
+    {
+        CancelInvoke("UnFreeze");
+        GetComponent<SpriteRenderer>().color = Color.blue;
+        speed = type.speed / 2;
+        Invoke("UnFreeze", 5);
+    }
+    void unFreeze()
+    {
+        GetComponent<SpriteRenderer>().color = Color.white;
+        speed = type.speed;
     }
 }

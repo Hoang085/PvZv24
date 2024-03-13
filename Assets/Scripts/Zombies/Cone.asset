@@ -14,10 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 17.5
   damage: 1
-  speed: 0.006
+  speed: 0.004
   range: 0.5
   eatCooldown: 1
   sprite: {fileID: 21300000, guid: 6f26fc334bb84474dbdd443cf47984c3, type: 3}
   deathSprite: {fileID: 21300000, guid: 3c6a12a0d3d41f044a252a42e0ede1d8, type: 3}
   type: {fileID: 0}
   probability: 0
+  hitClips:
+  - {fileID: 8300000, guid: e5277824d89348a4aaa87f27bce3ee98, type: 3}
+  - {fileID: 8300000, guid: 72d8f9cc783ce7f479bff90230bb8cd9, type: 3}

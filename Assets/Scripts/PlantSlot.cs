@@ -10,15 +10,12 @@ public class PlantSlot : MonoBehaviour
     public Sprite plantSprite;
     public GameObject plantObject;
     
-
     public int price;
 
     public Image Icon;
     public TextMeshProUGUI priceText;
 
     private GameManager gameManager;
-    private GameObject curPlant;
-
 
     private void Start()
     {
@@ -28,9 +25,14 @@ public class PlantSlot : MonoBehaviour
 
     public void BuyPlant()
     {
-        gameManager.BuyPlant(plantObject, plantSprite);
-        print("Buy plant");
-
+        if(gameManager.suns >= price)
+        {
+            gameManager.BuyPlant(plantObject, plantSprite, price);
+        }
+        else
+        {
+            return;
+        }
     }
 
     private void OnValidate()
@@ -48,23 +50,7 @@ public class PlantSlot : MonoBehaviour
         
     }
 
-    /*public void OnDrag(PointerEventData eventData)
-    {
-        curPlant.transform.position = Input.mousePosition;
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        print("a");
-        Vector2 mousePos = new Vector2(-4, 4.5f);
-        curPlant = Instantiate(plantObject,mousePos, Quaternion.identity);
-        curPlant.transform.position = Input.mousePosition;
-    }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        //Destroy(curPlant);
-    }*/
+   
 }
 
    

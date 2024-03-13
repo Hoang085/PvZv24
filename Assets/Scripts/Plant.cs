@@ -6,10 +6,12 @@ public class Plant : MonoBehaviour
 {
 
     public float health;
+    //private Zombies zombies;
 
     private void Start()
     {
         gameObject.layer = 9;
+
     }
     public void ReceiveDamage(float Damage)
     {

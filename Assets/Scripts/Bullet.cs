@@ -5,6 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float Damage;
+    public bool freeze;
     private float Speed =0.8f;
 
     private void Start()
@@ -20,8 +21,9 @@ public class Bullet : MonoBehaviour
     {
         if(other.TryGetComponent<Zombies>(out Zombies zombie))
         {
-            zombie.ReceiveDamge(Damage);
+            zombie.ReceiveDamge(Damage,freeze);
             Destroy(gameObject);
         }
     }
 }
+ 

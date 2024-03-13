@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8798537070334973797}
   - component: {fileID: 8263705153460822326}
   - component: {fileID: -6530701093313575777}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: pea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,7 +115,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2

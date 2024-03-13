@@ -1,23 +1,50 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Sun : MonoBehaviour
 {
-    private float droptoYPos;
+    public float droptoYPos;
     private float speed = .25f;
+    private GameManager gameManager;
+    private bool isOnTheMove;
 
     private void Start()
     {
-        transform.position = new Vector3(Random.Range(-5f,8f),6,0);
-        droptoYPos = Random.Range(-4.27f,3.34f);
-        Destroy(gameObject, Random.Range(6f, 12f));
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        isOnTheMove = true;
+        StartCoroutine(CheckMoving());
+
     }
-    private void Update()
+    private IEnumerator CheckMoving()
     {
-        if(transform.position.y >= droptoYPos)
+        Vector3 startPos = gameObject.transform.position;
+        yield return new WaitForSeconds(2f);
+        Vector3 finalPos = gameObject.transform.position;
+
+        if (startPos != finalPos)
+            isOnTheMove = true;
+
+        StartCoroutine(CheckMoving());
+    }
+
+    public void Update()
+    {
+        if(transform.position.y > droptoYPos)
         {
             transform.position -= new Vector3(0, speed * Time.fixedDeltaTime, 0);
         }
+        if (isOnTheMove == false)
+        {
+            Destroy(gameObject,5f);
+        }
     }
+    private void OnMouseDown()
+    {
+        gameManager.suns += 25;
+        Destroy(this.gameObject);
+    }
+
+    
 }
