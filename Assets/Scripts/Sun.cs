@@ -5,17 +5,19 @@ using UnityEngine;
 
 public class Sun : MonoBehaviour
 {
+    public AudioClip sunClip;
     public float droptoYPos;
     private float speed = .25f;
     private GameManager gameManager;
     private bool isOnTheMove;
+    private AudioSource source;
 
     private void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         isOnTheMove = true;
         StartCoroutine(CheckMoving());
-
+        source = GetComponent<AudioSource>();
     }
     private IEnumerator CheckMoving()
     {
@@ -44,6 +46,7 @@ public class Sun : MonoBehaviour
     {
         gameManager.suns += 25;
         Destroy(this.gameObject);
+        source.PlayOneShot(sunClip);
     }
 
     

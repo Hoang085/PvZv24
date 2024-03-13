@@ -1,4 +1,3 @@
-//using PVZ.Utils;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -20,9 +19,15 @@ public class GameManager : MonoBehaviour
 
     public int suns ;
     public TextMeshProUGUI sunText;
+    public AudioClip plantClip;
 
+    private AudioSource source;
     private GameObject curPlant;
-    
+
+    private void Start()
+    {
+        source = GetComponent<AudioSource>();
+    }
     public void BuyPlant(GameObject plant, Sprite sprite, int pricePlant)
     {
         currentPlant = plant;
@@ -48,6 +53,7 @@ public class GameManager : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0) && !hit.collider.GetComponent<Tile>().HasPlant)
             {
+                source.PlayOneShot(plantClip);
                 curPlant = null;
                 //Instantiate(currentPlant, hit.collider.transform.position, Quaternion.identity);
                 hit.collider.GetComponent<Tile>().HasPlant = true;
