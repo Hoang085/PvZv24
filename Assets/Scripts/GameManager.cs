@@ -19,15 +19,9 @@ public class GameManager : MonoBehaviour
 
     public int suns ;
     public TextMeshProUGUI sunText;
-    public AudioClip plantClip;
 
-    private AudioSource source;
     private GameObject curPlant;
 
-    private void Start()
-    {
-        source = GetComponent<AudioSource>();
-    }
     public void BuyPlant(GameObject plant, Sprite sprite, int pricePlant)
     {
         currentPlant = plant;
@@ -49,11 +43,12 @@ public class GameManager : MonoBehaviour
             curPlant.transform.position = hit.collider.gameObject.transform.position;
             hit.collider.GetComponent<SpriteRenderer>().sprite = currentPlantSprite;
             hit.collider.GetComponent<SpriteRenderer>().enabled = true;
+            
             print("do");
 
             if (Input.GetMouseButtonDown(0) && !hit.collider.GetComponent<Tile>().HasPlant)
             {
-                source.PlayOneShot(plantClip);
+                FindObjectOfType<AudioManager>().Play("setPlant");
                 curPlant = null;
                 //Instantiate(currentPlant, hit.collider.transform.position, Quaternion.identity);
                 hit.collider.GetComponent<Tile>().HasPlant = true;

@@ -6,15 +6,15 @@ public class Lose : MonoBehaviour
 {
     //public AnimationClip ani;
     
+    public GameObject death;
 
-    public Animation ani;
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if(collision.gameObject.layer == 7)
+        if(other.gameObject.layer == 10)
         {
-            //Time.timeScale = 0;
-            ani.Play("DeathAni");
+            Time.timeScale = 0;
+            death.SetActive(true);
+            FindObjectOfType<AudioManager>().Play("loseSound");
         }
     }
 
