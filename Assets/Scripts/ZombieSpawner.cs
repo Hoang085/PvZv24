@@ -23,7 +23,7 @@ public class ZombieSpawner : MonoBehaviour
 
     public void Start()
     { 
-        InvokeRepeating("SpawnZombie", 10, zombieDelay);
+        InvokeRepeating("SpawnZombie", 15, zombieDelay);
 
         foreach (ZombieTypeProb zom in zombieTypes)
         {

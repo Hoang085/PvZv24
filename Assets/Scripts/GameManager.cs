@@ -15,10 +15,10 @@ public class GameManager : MonoBehaviour
     public int PricePlant;
 
     public LayerMask tileMask;
-    public LayerMask sunMask;
 
     public int suns ;
     public TextMeshProUGUI sunText;
+
 
     private GameObject curPlant;
 
@@ -43,15 +43,14 @@ public class GameManager : MonoBehaviour
             curPlant.transform.position = hit.collider.gameObject.transform.position;
             hit.collider.GetComponent<SpriteRenderer>().sprite = currentPlantSprite;
             hit.collider.GetComponent<SpriteRenderer>().enabled = true;
-            
-            print("do");
 
             if (Input.GetMouseButtonDown(0) && !hit.collider.GetComponent<Tile>().HasPlant)
             {
                 FindObjectOfType<AudioManager>().Play("setPlant");
-                curPlant = null;
-                //Instantiate(currentPlant, hit.collider.transform.position, Quaternion.identity);
                 hit.collider.GetComponent<Tile>().HasPlant = true;
+                curPlant.GetComponent<Plant>().tile = hit.collider.GetComponent<Tile>();
+
+                curPlant = null;
                 currentPlantSprite = null;
                 currentPlant = null;
                 suns -= PricePlant;

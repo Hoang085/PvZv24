@@ -6,11 +6,11 @@ public class Plant : MonoBehaviour
 {
 
     public float health;
-    private Tile tile;
+
+    public Tile tile;
 
     private void Start()
     {
-        tile = GetComponent<Tile>();
         gameObject.layer = 9;
 
     }
@@ -19,9 +19,8 @@ public class Plant : MonoBehaviour
         health -= Damage;
         if(health <= 0)
         {
-            Destroy(gameObject);
-            tile.GetComponent<SpriteRenderer>().enabled = false;
             tile.HasPlant = false;
+            Destroy(gameObject);
         }
     }
 
