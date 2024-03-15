@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class PopupManager : MonoBehaviour
 {
     public GameObject popupMenu;
-    
     public void OpenMenu()
     {
         popupMenu.SetActive(true);
@@ -27,9 +28,5 @@ public class PopupManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    public void SetVolume(float volume)
-    {
-        print("volume");
-    }
 
 }

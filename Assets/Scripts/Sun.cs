@@ -43,9 +43,7 @@ public class Sun : MonoBehaviour
     {
 
         gameManager.suns += 25;
-
-        FindObjectOfType<AudioManager>().Play("sunSound");
-
+        AudioManager1.Instance.PlaySFX("sunSound");
         Destroy(this.gameObject);
     }
 

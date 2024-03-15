@@ -11,7 +11,7 @@ public class LawnMoving : MonoBehaviour
     {
         if(other.gameObject.layer == 10)
         {
-            FindObjectOfType<AudioManager>().Play("lawnSound");
+            AudioManager1.Instance.PlaySFX("lawnSound");
             m_IsMoving = true;
             other.GetComponent<Zombies>().ReceiveDamge(1000,false);
             Destroy(this.gameObject, 8);
