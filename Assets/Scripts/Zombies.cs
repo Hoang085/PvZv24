@@ -52,15 +52,22 @@ public class Zombies : MonoBehaviour
             isStop = true;
         }
     }
-
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.layer == 14)
+        {
+            Time.timeScale = 0;
+            AudioManager1.Instance.musicSource.Stop();
+            AudioManager1.Instance.PlaySFX("loseSound");
+            SOAssetReg.Instance.MainSaveData.Value.LoseEvent.Raise();
+        }
+    }
     IEnumerator Eat(Collision2D other)
     {
         targetPlant.ReceiveDamage(damage);
         yield return new WaitForSeconds(eatCooldown);
         StartCoroutine(Eat(other));
     }
-
-
     private void FixedUpdate()
     {
         if(!isStop)
@@ -92,4 +99,5 @@ public class Zombies : MonoBehaviour
         GetComponent<SpriteRenderer>().color = Color.white;
         speed = type.speed;
     }
+
 }

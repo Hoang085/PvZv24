@@ -9,28 +9,51 @@ using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject currentPlant;
-    public Sprite currentPlantSprite;
-    public Transform tiles;
-    public int PricePlant;
+    private GameObject currentPlant;
+    private Sprite currentPlantSprite;
+    //public Transform tiles;
+    private int PricePlant;
 
-    public LayerMask tileMask;
+    [SerializeField]
+    private GameObject winScreen;
+    [SerializeField]
+    private LayerMask tileMask;
+    [SerializeField]
+    private LayerMask plantMask;
+    [SerializeField]
+    private GameObject loseScreen;
 
-    public TextMeshProUGUI sunText;
+    [SerializeField]
+    private TextMeshProUGUI sunText;
 
     private GameObject curPlant;
     private GameObject curShovel;
 
-    public GameEvent UpdateSun;
+    [SerializeField]
+    private GameEvent LoseEvent;
+    [SerializeField]
+    private GameEvent UpdateSun;
+    [SerializeField]
+    private GameEvent WinEvent;
 
     private void Start()
     {
+        SOAssetReg.Instance.MainSaveData.Value.SunAmount = 75;
+        UpdateSun.Raise();
+        AudioManager1.Instance.PlayMusic("Theme");
+    }
+    private void OnEnable()
+    {
         UpdateSun.AddListener(UpdateSunAmount);
+        WinEvent.AddListener(WinGame);
+        LoseEvent.AddListener(LoseGame);
     }
 
     private void OnDisable()
     {
         UpdateSun.RemoveListener(UpdateSunAmount);
+        WinEvent.RemoveListener(WinGame);
+        LoseEvent.RemoveListener(LoseGame);
     }
 
     public void BuyPlant(GameObject plant, Sprite sprite, int pricePlant)
@@ -83,20 +106,24 @@ public class GameManager : MonoBehaviour
                 currentPlantSprite = null;
                 currentPlant = null;
             }
+            curShovel.transform.position = hit.collider.gameObject.transform.position;
         }
-        RaycastHit2D hitShovel = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, tileMask);
+
+        RaycastHit2D hitShovel = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, plantMask);
         if(hitShovel.collider && curShovel != null)
         {
+            print(hitShovel.collider);
             curShovel.transform.position = hitShovel.collider.gameObject.transform.position;
-            /*if(Input.GetMouseButtonDown (0) && hitShovel.collider.GetComponent<Tile>().HasPlant) 
+            if (Input.GetMouseButtonDown(0) && hitShovel.collider.gameObject.layer == 9 )
             {
                 Destroy(curShovel);
                 Destroy(hitShovel.collider.gameObject);
+                hit.collider.GetComponent<Tile>().HasPlant = false;
             }
             else if (Input.GetMouseButtonDown(0) && !hit.collider.GetComponent<Tile>())
             {
                 Destroy(curShovel);
-            }*/
+            }
         }
     }
 
@@ -104,5 +131,14 @@ public class GameManager : MonoBehaviour
     {
         sunText.text = SOAssetReg.Instance.MainSaveData.Value.SunAmount.ToString();
     } 
+    private void WinGame()
+    {
+        winScreen.SetActive(true);
+    }
+    private void LoseGame()
+    {
+        loseScreen.SetActive(true);
+    }
+
 
 }

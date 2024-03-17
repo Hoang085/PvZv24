@@ -22,12 +22,6 @@ public class AudioManager1 : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    private void Start()
-    {
-        PlayMusic("Theme");
-    }
-
     public void PlayMusic(string name)
     {
         Sound s = Array.Find(musicSounds,x => x.nameSound == name);
@@ -42,7 +36,6 @@ public class AudioManager1 : MonoBehaviour
             musicSource.Play();
         }
     }
-
     public void PlaySFX(string name)
     {
         Sound s = Array.Find(sfxSounds, x => x.nameSound == name);

@@ -10,4 +10,6 @@ public class MainSaveData
     public int SunAmount;
 
     [TitleGroup("GameEvents")] public GameEvent UpdateSun;
+    [TitleGroup("GameEvents")] public GameEvent WinEvent;
+    [TitleGroup("GameEvents")] public GameEvent LoseEvent;
 }

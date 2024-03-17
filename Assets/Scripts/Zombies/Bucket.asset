@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 25
   damage: 1
-  speed: 0.004
+  speed: 0.5
   range: 0.5
   eatCooldown: 1
   sprite: {fileID: 21300000, guid: 948643a92afc844438862df93373ea33, type: 3}

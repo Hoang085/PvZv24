@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _value:
     LevelCurrent: 0
-    SunAmount: 0
+    SunAmount: 100
     UpdateSun: {fileID: 11400000, guid: 55da1e5c076f21f40bcbab8aed6313a9, type: 2}
+    WinEvent: {fileID: 11400000, guid: d8911e88b671b1141b82d60930e1c18f, type: 2}
+    LoseEvent: {fileID: 11400000, guid: bd32347261aa4014caf3163af273597e, type: 2}
   _readOnly: 0
   _raiseWarning: 1
   _isClamped: 0
@@ -23,10 +25,14 @@ MonoBehaviour:
     LevelCurrent: 0
     SunAmount: 0
     UpdateSun: {fileID: 0}
+    WinEvent: {fileID: 0}
+    LoseEvent: {fileID: 0}
   _maxClampedValue:
     LevelCurrent: 0
     SunAmount: 0
     UpdateSun: {fileID: 0}
+    WinEvent: {fileID: 0}
+    LoseEvent: {fileID: 0}
   _event:
     m_PersistentCalls:
       m_Calls: []
