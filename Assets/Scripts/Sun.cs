@@ -42,7 +42,8 @@ public class Sun : MonoBehaviour
     private void OnMouseDown()
     {
 
-        gameManager.suns += 25;
+        SOAssetReg.Instance.MainSaveData.Value.SunAmount += 25;
+        SOAssetReg.Instance.MainSaveData.Value.UpdateSun.Raise();
         AudioManager1.Instance.PlaySFX("sunSound");
         Destroy(this.gameObject);
     }

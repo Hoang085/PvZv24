@@ -1,3 +1,4 @@
+using ScriptableObjectArchitecture;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -15,12 +16,22 @@ public class GameManager : MonoBehaviour
 
     public LayerMask tileMask;
 
-    public int suns ;
     public TextMeshProUGUI sunText;
-
 
     private GameObject curPlant;
     private GameObject curShovel;
+
+    public GameEvent UpdateSun;
+
+    private void Start()
+    {
+        UpdateSun.AddListener(UpdateSunAmount);
+    }
+
+    private void OnDisable()
+    {
+        UpdateSun.RemoveListener(UpdateSunAmount);
+    }
 
     public void BuyPlant(GameObject plant, Sprite sprite, int pricePlant)
     {
@@ -42,7 +53,6 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        sunText.text = suns.ToString();
         RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, tileMask);
         if (hit.collider && currentPlant)
         {
@@ -59,7 +69,8 @@ public class GameManager : MonoBehaviour
                 curPlant = null;
                 currentPlantSprite = null;
                 currentPlant = null;
-                suns -= PricePlant;
+                SOAssetReg.Instance.MainSaveData.Value.SunAmount -= PricePlant;
+                SOAssetReg.Instance.MainSaveData.Value.UpdateSun.Raise();
 
             }
             else if(Input.GetMouseButtonDown(0) && hit.collider.GetComponent<Tile>()) 
@@ -87,8 +98,11 @@ public class GameManager : MonoBehaviour
                 Destroy(curShovel);
             }*/
         }
-
-
     }
+
+    private void UpdateSunAmount()
+    {
+        sunText.text = SOAssetReg.Instance.MainSaveData.Value.SunAmount.ToString();
+    } 
 
 }

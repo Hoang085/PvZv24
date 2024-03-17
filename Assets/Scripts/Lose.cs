@@ -16,6 +16,8 @@ public class Lose : MonoBehaviour
             AudioManager1.Instance.musicSource.Stop();
             AudioManager1.Instance.PlaySFX("loseSound");
             death.SetActive(true);
+            SOAssetReg.Instance.MainSaveData.Value.SunAmount = 0;
+            SOAssetReg.Instance.MainSaveData.Value.UpdateSun.Raise();
         }
     }
 

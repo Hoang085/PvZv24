@@ -9,7 +9,8 @@ public class SunSpawner : MonoBehaviour
 
     private void Start()
     {
-        SpawnSun();
+        StartCoroutine(Delay());
+        
     }
     public void SpawnSun()
     {
@@ -17,5 +18,10 @@ public class SunSpawner : MonoBehaviour
         mySun.GetComponent<Sun>().droptoYPos = Random.Range(-4.27f, 3.34f);
         Invoke("SpawnSun", Random.Range(4, 10));
     }
- 
+
+    IEnumerator Delay()
+    {
+        yield return new WaitForSeconds(2);
+        SpawnSun();
+    }
 }
