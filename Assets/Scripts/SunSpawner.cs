@@ -1,16 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class SunSpawner : MonoBehaviour
 {
 
     public GameObject sunObject;
+    private ObjectPool<Sun> sunPool;
+
 
     private void Start()
     {
-        StartCoroutine(Delay());
-        
+        StartCoroutine(Delay());   
     }
     public void SpawnSun()
     {

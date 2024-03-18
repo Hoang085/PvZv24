@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class Zombies : MonoBehaviour
 {
     private float speed=0.006f;

@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 7278569917466042438}
   - component: {fileID: 2877067163410300628}
   - component: {fileID: 637533153134104366}
-  - component: {fileID: 8201522806902088865}
   m_Layer: 13
   m_Name: Shovel
   m_TagString: Untagged
@@ -159,15 +158,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &8201522806902088865
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5764920861529041964}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4a39919afd28b744afd4f536b4857f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

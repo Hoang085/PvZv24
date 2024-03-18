@@ -96,33 +96,34 @@ public class GameManager : MonoBehaviour
                 SOAssetReg.Instance.MainSaveData.Value.UpdateSun.Raise();
 
             }
-            else if(Input.GetMouseButtonDown(0) && hit.collider.GetComponent<Tile>()) 
+            else if (Input.GetMouseButtonDown(0) && hit.collider.GetComponent<Tile>())
             {
                 Destroy(curPlant);
             }
             else if (Input.GetMouseButtonDown(1))
             {
-                Destroy (curPlant);
+                Destroy(curPlant);
                 currentPlantSprite = null;
                 currentPlant = null;
             }
-            curShovel.transform.position = hit.collider.gameObject.transform.position;
         }
-
+        if(hit.collider && curShovel)
+        {
+            curShovel.transform.position = hit.collider.gameObject.transform.position;
+            if(Input.GetMouseButtonDown(0) && !hit.collider.GetComponent<Tile>().HasPlant)
+            {
+                Destroy(curShovel);
+            }
+        }
         RaycastHit2D hitShovel = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, plantMask);
         if(hitShovel.collider && curShovel != null)
         {
-            print(hitShovel.collider);
             curShovel.transform.position = hitShovel.collider.gameObject.transform.position;
             if (Input.GetMouseButtonDown(0) && hitShovel.collider.gameObject.layer == 9 )
             {
                 Destroy(curShovel);
                 Destroy(hitShovel.collider.gameObject);
                 hit.collider.GetComponent<Tile>().HasPlant = false;
-            }
-            else if (Input.GetMouseButtonDown(0) && !hit.collider.GetComponent<Tile>())
-            {
-                Destroy(curShovel);
             }
         }
     }
