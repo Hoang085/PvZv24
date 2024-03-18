@@ -9,6 +9,33 @@ public class ObjectPoolManager : MonoBehaviour
 {
     public static List<PooledObjectInfo> ObjectPools = new List<PooledObjectInfo>();
 
+    private static GameObject _objectPoolEmptyHolder;
+    private static GameObject _gameObjectEmpty;
+    private static GameObject _particleSystemEmpty;
+
+    public enum PoolType
+    {
+        GameObject,
+        ParticleSystem,
+        none
+    }
+    public static PoolType PoolingType;
+
+    private void Awake()
+    {
+        SetupEmpties();
+    }
+    private void SetupEmpties()
+    {
+        _objectPoolEmptyHolder = new GameObject("Pooled Objects");
+
+        _particleSystemEmpty = new GameObject("Particle Effects");
+        _particleSystemEmpty.transform.SetParent(_objectPoolEmptyHolder.transform);
+
+        _gameObjectEmpty = new GameObject("GameObjects");
+        _gameObjectEmpty.transform.SetParent(_objectPoolEmptyHolder.transform);
+    }
+
     public static  GameObject SpawnObject(GameObject objectToSpawn, Vector3 spawnPosition, Quaternion spawnRotation)
     {
         PooledObjectInfo pool = ObjectPools.Find(p => p.LookupString == objectToSpawn.name);
@@ -35,6 +62,9 @@ public class ObjectPoolManager : MonoBehaviour
 
         if(spawnableObj == null) 
         {
+
+
+            //if there are no iactivate objects, create a new one
             spawnableObj = Instantiate(objectToSpawn, spawnPosition,spawnRotation);
         }
         else
@@ -62,6 +92,22 @@ public class ObjectPoolManager : MonoBehaviour
         {
             obj.SetActive(false);
             pool.InactiveObject.Add(obj);
+        }
+    }
+
+    private static GameObject SetParentObject(PoolType poolType)
+    {
+        switch(poolType)
+        {
+            case PoolType.ParticleSystem:
+                return _particleSystemEmpty;
+            case PoolType.GameObject:
+                return _gameObjectEmpty;
+            case PoolType.none:
+                return null;
+            default:
+                return null;
+
         }
     }
 
