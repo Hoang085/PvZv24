@@ -11,7 +11,6 @@ public class GameManager : MonoBehaviour
 {
     private GameObject currentPlant;
     private Sprite currentPlantSprite;
-    //public Transform tiles;
     private int PricePlant;
 
     [SerializeField]
@@ -64,7 +63,7 @@ public class GameManager : MonoBehaviour
 
         Vector2 mousePos = Input.mousePosition;
         Vector2 plantPos = Camera.main.ScreenToWorldPoint(mousePos);
-        curPlant = Instantiate(currentPlant,plantPos,Quaternion.identity);
+        curPlant = Instantiate(currentPlant, plantPos, Quaternion.identity);
     }
     
     public void selectSholve(GameObject shovel)
@@ -88,7 +87,6 @@ public class GameManager : MonoBehaviour
                 AudioManager1.Instance.PlaySFX("setPlant");
                 hit.collider.GetComponent<Tile>().HasPlant = true;
                 curPlant.GetComponent<Plant>().tile = hit.collider.GetComponent<Tile>();
-
                 curPlant = null;
                 currentPlantSprite = null;
                 currentPlant = null;
@@ -140,6 +138,4 @@ public class GameManager : MonoBehaviour
     {
         loseScreen.SetActive(true);
     }
-
-
 }

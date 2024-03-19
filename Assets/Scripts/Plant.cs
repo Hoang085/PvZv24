@@ -12,7 +12,6 @@ public class Plant : MonoBehaviour
     private void Start()
     {
         gameObject.layer = 9;
-
     }
     public void ReceiveDamage(float Damage)
     {

@@ -6,19 +6,12 @@ using UnityEngine.UI;
 public class ZombieSpawner : MonoBehaviour
 {
     public Transform[] SpawnPoint;
-
     public GameObject zombie;
-
     public ZombieTypeProb[] zombieTypes;
-
     private List<ZombieType> probList = new List<ZombieType>();
-
     public int zombieMax;
-
     public int zombiesSpawned;
-
     public Slider progessBar;
-
     public float zombieDelay = 5;
 
     public void Start()
@@ -33,7 +26,6 @@ public class ZombieSpawner : MonoBehaviour
                 probList.Add(zom.type);
             }
         }
-
         progessBar.maxValue = zombieMax;
     }
     private void Update()
@@ -50,7 +42,8 @@ public class ZombieSpawner : MonoBehaviour
         }
         zombiesSpawned++;
         int r = Random.Range(0,SpawnPoint.Length);
-        GameObject myZombie = Instantiate(zombie, SpawnPoint[r].position,Quaternion.identity);
+        //GameObject myZombie = Instantiate(zombie, SpawnPoint[r].position,Quaternion.identity);
+        GameObject myZombie = ObjectPoolManager.SpawnObject(zombie, SpawnPoint[r].position,Quaternion.identity,ObjectPoolManager.PoolType.GameObject);
         myZombie.GetComponent<Zombies>().type = probList[Random.Range(0,probList.Count)];
     }
 }

@@ -9,6 +9,7 @@ public class Sun : MonoBehaviour
     private float speed = .25f;
     private GameManager gameManager;
     private bool isOnTheMove;
+    private float destroyTime = 5f;
 
     private void Start()
     {
@@ -36,16 +37,25 @@ public class Sun : MonoBehaviour
         }
         if (isOnTheMove == false)
         {
-            Destroy(gameObject,5f);
+            StartCoroutine(ReturnToPoolAfterTime());
         }
+    }
+    private IEnumerator ReturnToPoolAfterTime()
+    {
+        float elapsedTime = 0f;
+        while (elapsedTime < destroyTime)
+        {
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        ObjectPoolManager.ReturnObjectToPool(gameObject);
     }
     private void OnMouseDown()
     {
-
         SOAssetReg.Instance.MainSaveData.Value.SunAmount += 25;
         SOAssetReg.Instance.MainSaveData.Value.UpdateSun.Raise();
         AudioManager1.Instance.PlaySFX("sunSound");
-        Destroy(this.gameObject);
+        ObjectPoolManager.ReturnObjectToPool(gameObject);
     }
 
     

@@ -39,7 +39,6 @@ public class Zombies : MonoBehaviour
         {
             isStop = false;
         }
-        
     }
 
     public void OnCollisionEnter2D(Collision2D other)
@@ -83,7 +82,7 @@ public class Zombies : MonoBehaviour
         }
         if(Health <= 0) 
         {
-            Destroy(gameObject);
+            ObjectPoolManager.ReturnObjectToPool(gameObject);
         }
     }
     void Freeze()

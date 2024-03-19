@@ -40,7 +40,7 @@ public class BasicShooter : MonoBehaviour
         canShoot = false;
         Invoke("ResetCooldown", cooldown);
 
-        ObjectPoolManager.SpawnObject(bullet,shootOrigin.position,Quaternion.identity);
+        ObjectPoolManager.SpawnObject(bullet,shootOrigin.position,Quaternion.identity,ObjectPoolManager.PoolType.Bullet);
 
 
         //GameObject myBullet = Instantiate(bullet, shootOrigin.position, Quaternion.identity);

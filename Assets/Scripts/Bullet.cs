@@ -11,10 +11,7 @@ public class Bullet : MonoBehaviour
 
     private Coroutine _returnToPoolTimerCoroutine;
 
-    private void Start()
-    {
-        Destroy(gameObject, destroyTime);
-    }
+
 
     private void OnEnable()
     {
@@ -24,6 +21,10 @@ public class Bullet : MonoBehaviour
     private void Update()
     {
         transform.position += new Vector3(Speed * Time.fixedDeltaTime, 0, 0);
+        if(gameObject.transform.position.x > 9.7f)
+        {
+            ObjectPoolManager.ReturnObjectToPool(gameObject);
+        }
     }
 
     private IEnumerator ReturnToPoolAfterTime()

@@ -12,11 +12,16 @@ public class ObjectPoolManager : MonoBehaviour
     private static GameObject _objectPoolEmptyHolder;
     private static GameObject _gameObjectEmpty;
     private static GameObject _particleSystemEmpty;
+    private static GameObject _sunObjectEmpty;
+    private static GameObject _bulletObjectEmpty;
+
 
     public enum PoolType
     {
         GameObject,
         ParticleSystem,
+        Sun,
+        Bullet,
         none
     }
     public static PoolType PoolingType;
@@ -34,9 +39,15 @@ public class ObjectPoolManager : MonoBehaviour
 
         _gameObjectEmpty = new GameObject("GameObjects");
         _gameObjectEmpty.transform.SetParent(_objectPoolEmptyHolder.transform);
+
+        _sunObjectEmpty = new GameObject("Sun");
+        _sunObjectEmpty.transform.SetParent(_objectPoolEmptyHolder.transform);
+
+        _bulletObjectEmpty = new GameObject("Bullet");
+        _bulletObjectEmpty.transform.SetParent(_objectPoolEmptyHolder.transform);
     }
 
-    public static  GameObject SpawnObject(GameObject objectToSpawn, Vector3 spawnPosition, Quaternion spawnRotation)
+    public static  GameObject SpawnObject(GameObject objectToSpawn, Vector3 spawnPosition, Quaternion spawnRotation,PoolType poolType = PoolType.none)
     {
         PooledObjectInfo pool = ObjectPools.Find(p => p.LookupString == objectToSpawn.name);
 
@@ -62,10 +73,16 @@ public class ObjectPoolManager : MonoBehaviour
 
         if(spawnableObj == null) 
         {
-
+            //Find the parent of the empty object
+            GameObject parentObject = SetParentObject(poolType);
 
             //if there are no iactivate objects, create a new one
             spawnableObj = Instantiate(objectToSpawn, spawnPosition,spawnRotation);
+
+            if(parentObject != null)
+            {
+                spawnableObj.transform.SetParent(parentObject.transform);
+            }
         }
         else
         {
@@ -78,6 +95,36 @@ public class ObjectPoolManager : MonoBehaviour
 
         return spawnableObj;
     }
+
+    /*public static GameObject SpawnObject(GameObject objectToSpawn, Transform parentTranform)
+    {
+        PooledObjectInfo pool = ObjectPools.Find(p => p.LookupString == objectToSpawn.name);
+
+        //if the pool doesn't exist, create it
+        if (pool == null)
+        {
+            pool = new PooledObjectInfo() { LookupString = objectToSpawn.name };
+            ObjectPools.Add(pool);
+        }
+
+        //check if there are any iactive objects in the pool
+        GameObject spawnableObj = pool.InactiveObject.FirstOrDefault();
+
+
+        if (spawnableObj == null)
+        {
+            //if there are no iactivate objects, create a new one
+            spawnableObj = Instantiate(objectToSpawn, parentTranform);
+        }
+        else
+        {
+            //if there is an iactive object, reactive it
+            pool.InactiveObject.Remove(spawnableObj);
+            spawnableObj.SetActive(true);
+        }
+
+        return spawnableObj;
+    }*/
 
     public static void ReturnObjectToPool(GameObject obj)
     {
@@ -105,14 +152,15 @@ public class ObjectPoolManager : MonoBehaviour
                 return _gameObjectEmpty;
             case PoolType.none:
                 return null;
+            case PoolType.Sun:
+                return _sunObjectEmpty;
+            case PoolType.Bullet:
+                return _bulletObjectEmpty;
             default:
                 return null;
-
         }
     }
-
 }
-
 public class PooledObjectInfo
 {
     public string LookupString;
