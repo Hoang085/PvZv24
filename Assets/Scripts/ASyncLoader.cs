@@ -15,17 +15,17 @@ public class ASyncLoader : MonoBehaviour
     [Header("Slider")]
     [SerializeField] private Slider loadingSlider;
 
-    public void LoadLevelBtn(int levelToLoad)
+    public void LoadLevelBtn()
     {
         mainMenu.SetActive(false);
         loadingScreen.SetActive(true);
 
-        StartCoroutine(LoadLevelASync(levelToLoad));
+        StartCoroutine(LoadLevelASync());
     }
 
-    IEnumerator LoadLevelASync(int levelToLoad)
+    IEnumerator LoadLevelASync()
     {
-        AsyncOperation loadOperation = SceneManager.LoadSceneAsync(levelToLoad);
+        AsyncOperation loadOperation = SceneManager.LoadSceneAsync($"Level {SOAssetReg.Instance.MainSaveData.Value.LevelCurrent}");
         while(!loadOperation.isDone)
         {
             float progressValue = Mathf.Clamp01(loadOperation.progress / 0.9f);
@@ -34,6 +34,13 @@ public class ASyncLoader : MonoBehaviour
             yield return null;
         }
     }
+
+    public void NewGame()
+    {
+        SOAssetReg.Instance.MainSaveData.Value.LevelCurrent = 1;
+        LoadLevelBtn();
+    }
+
     private float WaitForSeconds(float v)
     {
         return Time.deltaTime * v;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public class Zombies : MonoBehaviour
 {
-    private float speed=0.006f;
+    private float speed = 0.006f;
 
     private float Health;
     private float damage;
@@ -11,11 +11,13 @@ public class Zombies : MonoBehaviour
     private float eatCooldown;
     private AudioSource source;
     private bool isStop = false;
+    private int isDeath = 0;
+    private ZombieSpawner zombieSpawner;
 
     public Plant targetPlant;
     public LayerMask plantMask;
     public ZombieType type;
-    
+
 
     private void Start()
     {
@@ -27,15 +29,23 @@ public class Zombies : MonoBehaviour
         eatCooldown = type.eatCooldown;
 
         GetComponent<SpriteRenderer>().sprite = type.sprite;
+        zombieSpawner = GameObject.Find("ZombiePawner").GetComponent<ZombieSpawner>();
     }
 
     private void Update()
     {
-        if (Health == 1)
+        if(Health >= 10)
+        {
+            GetComponent<SpriteRenderer>().sprite = type.sprite;
+        }
+        else if (Health <= 1)
         {
             GetComponent<SpriteRenderer>().sprite = type.deathSprite;
+        }else if (Health <10)
+        {
+            GetComponent<SpriteRenderer>().sprite= type.defaultSprite;
         }
-        if(!targetPlant)
+        if (!targetPlant)
         {
             isStop = false;
         }
@@ -43,7 +53,7 @@ public class Zombies : MonoBehaviour
 
     public void OnCollisionEnter2D(Collision2D other)
     {
-        if(other.gameObject.layer == 9)
+        if (other.gameObject.layer == 9)
         {
             targetPlant = other.gameObject.GetComponent<Plant>();
             StartCoroutine(Eat(other));
@@ -68,8 +78,8 @@ public class Zombies : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if(!isStop)
-            transform.position -= new Vector3(speed, 0, 0); 
+        if (!isStop)
+            transform.position -= new Vector3(speed, 0, 0);
     }
 
     public void ReceiveDamge(float Damage, bool freeze)
@@ -80,8 +90,9 @@ public class Zombies : MonoBehaviour
         {
             Freeze();
         }
-        if(Health <= 0) 
+        if (Health <= 0)
         {
+            Health = type.health;
             ObjectPoolManager.ReturnObjectToPool(gameObject);
         }
     }
@@ -97,5 +108,4 @@ public class Zombies : MonoBehaviour
         GetComponent<SpriteRenderer>().color = Color.white;
         speed = type.speed;
     }
-
 }

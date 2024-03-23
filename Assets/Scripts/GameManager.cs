@@ -132,10 +132,12 @@ public class GameManager : MonoBehaviour
     } 
     private void WinGame()
     {
+        AudioManager1.Instance.PlaySFX("winSound");
         winScreen.SetActive(true);
     }
     private void LoseGame()
     {
+        Time.timeScale = 0;
         loseScreen.SetActive(true);
     }
 }

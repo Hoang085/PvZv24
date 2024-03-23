@@ -17,6 +17,8 @@ public class ZombieType : ScriptableObject
 
     public Sprite sprite;
 
+    public Sprite defaultSprite;
+
     public Sprite deathSprite;
 
     public ZombieType type;

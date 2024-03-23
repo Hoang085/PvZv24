@@ -35,16 +35,13 @@ public class ZombieSpawner : MonoBehaviour
     public void SpawnZombie()
     {
         if (zombiesSpawned >= zombieMax)
-        {
-            print("a");
-            SOAssetReg.Instance.MainSaveData.Value.WinEvent.Raise();
             return;
-        }
+        
         zombiesSpawned++;
         int r = Random.Range(0,SpawnPoint.Length);
-        //GameObject myZombie = Instantiate(zombie, SpawnPoint[r].position,Quaternion.identity);
         GameObject myZombie = ObjectPoolManager.SpawnObject(zombie, SpawnPoint[r].position,Quaternion.identity,ObjectPoolManager.PoolType.GameObject);
         myZombie.GetComponent<Zombies>().type = probList[Random.Range(0,probList.Count)];
+
     }
 }
 
