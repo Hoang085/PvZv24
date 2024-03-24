@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ShowPanelButton : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class ShowPanelButton : MonoBehaviour
 
     public void DoShowPanel()
     {
-        PopUpManager1.Instance.ShowPanel(PanelId);
+        //PopUpManager1.Instance.ShowPanel(PanelId);
+        SceneManager.LoadScene(5);
     }
 }

@@ -4,20 +4,18 @@ using UnityEngine;
 public class Zombies : MonoBehaviour
 {
     private float speed = 0.006f;
-
     private float Health;
     private float damage;
     private float range;
     private float eatCooldown;
     private AudioSource source;
     private bool isStop = false;
-    private int isDeath = 0;
     private ZombieSpawner zombieSpawner;
 
     public Plant targetPlant;
     public LayerMask plantMask;
     public ZombieType type;
-
+    public List<GameObject> listZombieDeath;
 
     private void Start()
     {
@@ -60,6 +58,7 @@ public class Zombies : MonoBehaviour
             isStop = true;
         }
     }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.layer == 14)
@@ -70,12 +69,14 @@ public class Zombies : MonoBehaviour
             SOAssetReg.Instance.MainSaveData.Value.LoseEvent.Raise();
         }
     }
+
     IEnumerator Eat(Collision2D other)
     {
         targetPlant.ReceiveDamage(damage);
         yield return new WaitForSeconds(eatCooldown);
         StartCoroutine(Eat(other));
     }
+
     private void FixedUpdate()
     {
         if (!isStop)
@@ -93,9 +94,13 @@ public class Zombies : MonoBehaviour
         if (Health <= 0)
         {
             Health = type.health;
+            SOAssetReg.Instance.MainSaveData.Value.ZombieDeath += 1;
+            if (SOAssetReg.Instance.MainSaveData.Value.ZombieDeath == zombieSpawner.zombieMax)
+                SOAssetReg.Instance.winEvent.Raise();
             ObjectPoolManager.ReturnObjectToPool(gameObject);
         }
     }
+
     void Freeze()
     {
         CancelInvoke("UnFreeze");
@@ -103,6 +108,7 @@ public class Zombies : MonoBehaviour
         speed = type.speed / 2;
         Invoke("UnFreeze", 5);
     }
+
     void unFreeze()
     {
         GetComponent<SpriteRenderer>().color = Color.white;

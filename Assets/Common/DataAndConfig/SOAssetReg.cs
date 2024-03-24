@@ -10,5 +10,10 @@ using UnityEngine;
 public class SOAssetReg : GlobalConfig<SOAssetReg>
 {
     [BoxGroup("Save Data")] public MainSaveDataVariable MainSaveData;
-  
+
+    [BoxGroup("Game Event")] public GameEvent winEvent;
+    [BoxGroup("Game Event")] public GameEvent loseEvent;
+
+    [BoxGroup("Variables")] public BoolVariable isPlayingGameVariable;
+
 }

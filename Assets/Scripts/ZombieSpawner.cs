@@ -15,12 +15,12 @@ public class ZombieSpawner : MonoBehaviour
     public float zombieDelay = 5;
 
     public void Start()
-    { 
+    {
+        SOAssetReg.Instance.MainSaveData.Value.ZombieDeath = 0;
         InvokeRepeating("SpawnZombie", 15, zombieDelay);
 
         foreach (ZombieTypeProb zom in zombieTypes)
         {
-            
             for(int i = 0; i< zom.probability;i++)
             {
                 probList.Add(zom.type);
@@ -35,13 +35,14 @@ public class ZombieSpawner : MonoBehaviour
     public void SpawnZombie()
     {
         if (zombiesSpawned >= zombieMax)
+        {
             return;
+        }
         
         zombiesSpawned++;
         int r = Random.Range(0,SpawnPoint.Length);
         GameObject myZombie = ObjectPoolManager.SpawnObject(zombie, SpawnPoint[r].position,Quaternion.identity,ObjectPoolManager.PoolType.GameObject);
         myZombie.GetComponent<Zombies>().type = probList[Random.Range(0,probList.Count)];
-
     }
 }
 

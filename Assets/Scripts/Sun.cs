@@ -9,7 +9,7 @@ public class Sun : MonoBehaviour
     private float speed = .25f;
     private GameManager gameManager;
     private bool isOnTheMove;
-    private float destroyTime = 5f;
+    private float destroyTime = 3f;
 
     private void Start()
     {
@@ -22,10 +22,8 @@ public class Sun : MonoBehaviour
         Vector3 startPos = gameObject.transform.position;
         yield return new WaitForSeconds(2f);
         Vector3 finalPos = gameObject.transform.position;
-
-        if (startPos != finalPos)
-            isOnTheMove = true;
-
+        isOnTheMove = startPos != finalPos?true:false;
+        
         StartCoroutine(CheckMoving());
     }
 

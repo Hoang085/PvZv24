@@ -19,13 +19,14 @@ public class ASyncLoader : MonoBehaviour
     {
         mainMenu.SetActive(false);
         loadingScreen.SetActive(true);
-
+        SOAssetReg.Instance.isPlayingGameVariable.Value = true;
         StartCoroutine(LoadLevelASync());
     }
 
     IEnumerator LoadLevelASync()
     {
         AsyncOperation loadOperation = SceneManager.LoadSceneAsync($"Level {SOAssetReg.Instance.MainSaveData.Value.LevelCurrent}");
+        
         while(!loadOperation.isDone)
         {
             float progressValue = Mathf.Clamp01(loadOperation.progress / 0.9f);
@@ -38,6 +39,8 @@ public class ASyncLoader : MonoBehaviour
     public void NewGame()
     {
         SOAssetReg.Instance.MainSaveData.Value.LevelCurrent = 1;
+        SOAssetReg.Instance.MainSaveData.Value.ZombieDeath = 0;
+
         LoadLevelBtn();
     }
 

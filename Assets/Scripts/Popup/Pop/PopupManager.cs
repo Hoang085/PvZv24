@@ -26,6 +26,7 @@ public class PopupManager : MonoBehaviour
     public void QuitlV()
     {
         SceneManager.LoadScene(0);
+        SOAssetReg.Instance.isPlayingGameVariable.Value = false;
     }
     public void NextLV()
     {
