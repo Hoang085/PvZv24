@@ -9,10 +9,7 @@ public class SunSpawner : MonoBehaviour
 
     private void Start()
     {
-        if (SOAssetReg.Instance.isPlayingGameVariable.Value)
-        {
-            StartCoroutine(Delay());
-        }
+            StartCoroutine(Delay());     
     }
     public void SpawnSun()
     {

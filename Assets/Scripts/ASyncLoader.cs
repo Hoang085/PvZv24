@@ -19,7 +19,7 @@ public class ASyncLoader : MonoBehaviour
     {
         mainMenu.SetActive(false);
         loadingScreen.SetActive(true);
-        SOAssetReg.Instance.isPlayingGameVariable.Value = true;
+
         StartCoroutine(LoadLevelASync());
     }
 

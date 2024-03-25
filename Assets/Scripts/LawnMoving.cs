@@ -23,5 +23,7 @@ public class LawnMoving : MonoBehaviour
         {
             transform.position += new Vector3(speed * Time.deltaTime, 0, 0);
         }
+        if (gameObject.transform.position.x >= 18)
+            Destroy(gameObject);
     }
 }

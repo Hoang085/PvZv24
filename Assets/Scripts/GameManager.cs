@@ -132,6 +132,7 @@ public class GameManager : MonoBehaviour
     } 
     private void WinGame()
     {
+        AudioManager1.Instance.musicSource.Stop();
         AudioManager1.Instance.PlaySFX("winSound");
         winScreen.SetActive(true);
     }

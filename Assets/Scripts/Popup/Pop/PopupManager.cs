@@ -20,13 +20,14 @@ public class PopupManager : MonoBehaviour
     }
     public void ResetLV()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadSceneAsync($"Level {SOAssetReg.Instance.MainSaveData.Value.LevelCurrent}");
         Time.timeScale = 1;
     }
     public void QuitlV()
     {
+        AudioManager1.Instance.musicSource.Stop();
         SceneManager.LoadScene(0);
-        SOAssetReg.Instance.isPlayingGameVariable.Value = false;
+        Time.timeScale = 1;
     }
     public void NextLV()
     {
