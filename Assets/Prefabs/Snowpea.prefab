@@ -99,8 +99,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f713cd779b254ba4f8526a2a7609c185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shootMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  _InitialVeclocity: 0
+  _Angle: 0
+  isProjectTile: 0
   Damage: 1
   freeze: 1
+  throwForce: 10
+  heightOffset: 2
 --- !u!50 &8263705153460822326
 Rigidbody2D:
   serializedVersion: 4

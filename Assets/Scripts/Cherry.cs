@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,14 +7,15 @@ public class Cherry : MonoBehaviour
 {
     [SerializeField]
     private LayerMask zombieMask;
+
     public float delay = 3f;
-    public float radius = 5f;
+    public float radius = 0.5f;
     public GameObject explosionEffect;
 
     float coutdown;
     bool hasExploded = false;
 
-    private List<Collider2D> colliders = new List<Collider2D>();
+    private List<Zombies> objectToBomb = new List<Zombies>(); 
 
     // Start is called before the first frame update
     void Start()
@@ -30,24 +32,29 @@ public class Cherry : MonoBehaviour
             hasExploded = true;
             Explode();
         }
+        Vector2 objPos = gameObject.transform.position;
     }
     void Explode()
     {
+        gameObject.GetComponent<SpriteRenderer>().enabled = false;
         Instantiate(explosionEffect, gameObject.transform);
-        if(Physics2D.OverlapCircle(gameObject.transform.position, radius))
-        {
 
-        }
-        colliders.Add(Physics2D.OverlapCircle(gameObject.transform.position, radius,zombieMask));
+        Collider2D[] col = Physics2D.OverlapCircleAll(gameObject.transform.position, radius, zombieMask);
 
-        foreach (Collider2D nearbyObject in colliders)
+        foreach (Collider2D nearbyObject in col)
         {
             Rigidbody2D rb = nearbyObject.GetComponent<Rigidbody2D>();
-            if (rb != null)
-            {
-                Destroy(rb);
-            }
+            Zombies zombies = nearbyObject.GetComponent<Zombies>();
+            //objectToBomb.Add(zombies);
+            zombies.ReceiveDamge(1000f, false);
         }
-        //Destroy(gameObject);
+
+        StartCoroutine(waittoBomb());
+    }
+    IEnumerator waittoBomb()
+    {
+        yield return new WaitForSeconds(1f);
+        Plant plant = GetComponent<Plant>();
+        plant.ReceiveDamage(10000f);
     }
 }

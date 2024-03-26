@@ -190,6 +190,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c4dc536fb4c742448592c332f3c88be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  zombieMask:
+    serializedVersion: 2
+    m_Bits: 1024
   delay: 3
   radius: 5
   explosionEffect: {fileID: 9051203842768466426, guid: fb3366f7ca14eec44b8efa0f643b84f2, type: 3}

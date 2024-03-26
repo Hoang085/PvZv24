@@ -100,7 +100,18 @@ public class Zombies : MonoBehaviour
             ObjectPoolManager.ReturnObjectToPool(gameObject);
         }
     }
-
+    public void ReceiveDamgebybomb(float Damage)
+    {
+        Health -= Damage;
+        if (Health <= 0)
+        {
+            Health = type.health;
+            SOAssetReg.Instance.MainSaveData.Value.ZombieDeath += 1;
+            if (SOAssetReg.Instance.MainSaveData.Value.ZombieDeath == zombieSpawner.zombieMax)
+                SOAssetReg.Instance.winEvent.Raise();
+            ObjectPoolManager.ReturnObjectToPool(gameObject);
+        }
+    }
     void Freeze()
     {
         CancelInvoke("UnFreeze");

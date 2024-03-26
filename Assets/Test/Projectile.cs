@@ -1,32 +1,43 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Projectile : MonoBehaviour
+public class ProjectileLauncher : MonoBehaviour
 {
-    [SerializeField] float _InitialVeclocity;
-    [SerializeField] float _Angle;
+    public Transform target; // Mục tiêu cần ném tới
+    public float launchAngle = 45f; // Góc ném
+    public float projectileSpeed = 10f; // Tốc độ của vật thể
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            float angle = _Angle * Mathf.Deg2Rad;
-            StopAllCoroutines();
-            StartCoroutine(Coroutine_Movement(_InitialVeclocity,angle));  
+            LaunchProjectile();
         }
     }
 
-    IEnumerator Coroutine_Movement(float v0,float angle)
+    void LaunchProjectile()
     {
-        float t = 0;
-        while (t < 100)
-        {
-            float x = v0 * t * Mathf.Cos(angle);
-            float y = v0 * t * Mathf.Sin(angle) - (1f/2f)*-Physics.gravity.y*Mathf.Pow(t,2);    
-            transform.position = new Vector3(x,y,0);
-            t+= Time.deltaTime;
-            yield return null;
-        }
+        Vector3 projectileDirection = CalculateProjectileDirection();
+        Vector3 launchVelocity = projectileDirection * projectileSpeed;
+        GetComponent<Rigidbody2D>().velocity = launchVelocity;
+    }
+
+    Vector3 CalculateProjectileDirection()
+    {
+        Vector3 targetPosition = target.position;
+        Vector3 launchPosition = transform.position;
+
+        float distance = Vector3.Distance(targetPosition, launchPosition);
+        float gravity = Physics.gravity.y;
+
+        float angle = launchAngle * Mathf.Deg2Rad;
+
+        float sinTheta = Mathf.Sin(angle);
+        float cosTheta = Mathf.Cos(angle);
+
+        float initialVelocity = Mathf.Sqrt((distance * gravity) / (Mathf.Sin(2 * angle)));
+
+        Vector3 direction = (targetPosition - launchPosition).normalized;
+        direction.y = distance * Mathf.Tan(angle);
+        return direction.normalized;
     }
 }
