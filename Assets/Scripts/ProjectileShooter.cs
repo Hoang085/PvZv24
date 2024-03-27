@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicShooter : MonoBehaviour
+public class ProjectileShooter : MonoBehaviour
 {
-
     public GameObject bullet;
     public Transform shootOrigin;
     public float cooldown;
-    public bool isRepeat;
 
     public float range;
     public LayerMask shootMask;
+
+    public float lauchForce = 10f;
 
     private bool canShoot;
     private GameObject target;
@@ -40,21 +40,8 @@ public class BasicShooter : MonoBehaviour
             return;
         canShoot = false;
         Invoke("ResetCooldown", cooldown);
-
-        if (isRepeat)
-        {
-            ObjectPoolManager.SpawnObject(bullet, shootOrigin.position, Quaternion.identity, ObjectPoolManager.PoolType.Bullet);
-            StartCoroutine(waitForShoot());
-        }
-        else
-        {
-            ObjectPoolManager.SpawnObject(bullet, shootOrigin.position, Quaternion.identity, ObjectPoolManager.PoolType.Bullet);
-        }
-        print("a");
-    }
-    IEnumerator waitForShoot()
-    {
-        yield return new WaitForSeconds(0.3f);
         ObjectPoolManager.SpawnObject(bullet, shootOrigin.position, Quaternion.identity, ObjectPoolManager.PoolType.Bullet);
+ 
     }
+
 }

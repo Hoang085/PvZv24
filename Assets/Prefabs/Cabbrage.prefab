@@ -41,9 +41,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4792154586050831318}
   - component: {fileID: 1546842935523969207}
-  - component: {fileID: 3360007616849510233}
   - component: {fileID: 5159662488417149085}
   - component: {fileID: 6959556030515428870}
+  - component: {fileID: 4741160530868153680}
   m_Layer: 9
   m_Name: Cabbrage
   m_TagString: Untagged
@@ -119,26 +119,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3360007616849510233
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2994840837236689037}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d959323659da8843ace3008e8b8da96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bullet: {fileID: 7312625817956116807, guid: 5b0a9076843117544b3a30c9ede19aa1, type: 3}
-  shootOrigin: {fileID: 4539359865368856005}
-  cooldown: 3
-  isRepeat: 0
-  range: 15
-  shootMask:
-    serializedVersion: 2
-    m_Bits: 1152
 --- !u!61 &5159662488417149085
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -198,3 +178,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 5
   tile: {fileID: 0}
+--- !u!114 &4741160530868153680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2994840837236689037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ebd9fda046a46046a0d7f8ff6616d92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 7312625817956116807, guid: 5b0a9076843117544b3a30c9ede19aa1, type: 3}
+  shootOrigin: {fileID: 4539359865368856005}
+  cooldown: 3
+  range: 15
+  shootMask:
+    serializedVersion: 2
+    m_Bits: 1152
+  lauchForce: 10

@@ -2,31 +2,29 @@
 using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
+using UnityEngine.U2D;
 using static UnityEngine.GraphicsBuffer;
 
 public class Bullet : MonoBehaviour
 {
     [SerializeField] LayerMask shootMask;
-    [SerializeField] float _InitialVeclocity;
-    [SerializeField] float _Angle;
     [SerializeField] bool isProjectTile;
     public float Damage;
     public bool freeze;
 
-    private Transform target;
-    public float throwForce = 10f; // Lực ném
-    public float heightOffset = 2f;// Độ cao mà đối tượng ném sẽ đạt được trước khi di chuyển tới mục tiêu
-
     private float Speed =1.2f;
     private float destroyTime = 10f;
-    private Rigidbody2D rb;
-
     private Coroutine _returnToPoolTimerCoroutine;
 
-    private void Start()
+    private float tParam;
+    private Vector2 objPos;
+    private GameObject target;
+
+    void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        tParam = 0;
     }
+
     private void OnEnable()
     {
         _returnToPoolTimerCoroutine = StartCoroutine(ReturnToPoolAfterTime());
@@ -34,31 +32,18 @@ public class Bullet : MonoBehaviour
 
     private void Update()
     {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, 15, shootMask);
+        if (hit.collider)
+        {
+           target = hit.collider.gameObject;
+        }
         if (gameObject.transform.position.x > 9.7f)
         {
             ObjectPoolManager.ReturnObjectToPool(gameObject);
         }
         if (isProjectTile)
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, 15, shootMask);
-            if (hit.collider)
-            {
-                target = hit.collider.gameObject.transform;
-                Vector3 toTarget = target.position - transform.position;
-                float distance = toTarget.magnitude;
-                float g = Physics.gravity.y;
-
-                // Tính toán vận tốc cần thiết để đạt được mục tiêu
-                float verticalSpeed = Mathf.Sqrt(2 * (heightOffset + (toTarget.y / -g)) * Mathf.Abs(g));
-                float horizontalSpeed = Mathf.Sqrt(distance / (1 / ((Mathf.Abs(g) / 2) * distance / throwForce) + 1));
-
-                // Áp dụng lực ném
-                Vector3 velocity = new Vector3(horizontalSpeed * Mathf.Sign(toTarget.x), verticalSpeed, horizontalSpeed * Mathf.Sign(toTarget.z));
-                rb.velocity = velocity;
-
-                // Điều chỉnh hướng của đối tượng
-                transform.LookAt(target);
-            }
+            StartCoroutine(GoByTheRoute());
         }
         else
         {
@@ -85,24 +70,28 @@ public class Bullet : MonoBehaviour
             ObjectPoolManager.ReturnObjectToPool(gameObject);
         }
     }
-    /*void ThrowToTarget()
+
+    private IEnumerator GoByTheRoute()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, 15, shootMask);
-        Vector3 toTarget = hit.collider.gameObject.transform.position - transform.position;
-        float distance = toTarget.magnitude;
-        float g = Physics.gravity.y;
 
-        // Tính toán vận tốc cần thiết để đạt được mục tiêu
-        float verticalSpeed = Mathf.Sqrt(2 * (heightOffset + (toTarget.y / -g)) * Mathf.Abs(g));
-        float horizontalSpeed = Mathf.Sqrt(distance / (1 / ((Mathf.Abs(g) / 2) * distance / throwForce) + 1));
+        Vector2 p0 = gameObject.transform.position;
+        Vector2 p1 = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y+0.2f);
+        Vector2 p2 = new Vector2(target.transform.position.x, target.transform.position.y+0.2f );
+        Vector2 p3 = target.transform.position;
 
-        // Áp dụng lực ném
-        Vector3 velocity = new Vector3(horizontalSpeed * Mathf.Sign(toTarget.x), verticalSpeed, horizontalSpeed * Mathf.Sign(toTarget.z));
-        rb.velocity = velocity;
+        while (tParam < 1)
+        {
+            tParam += Time.deltaTime * 0.0005f;
+            objPos = Mathf.Pow(1 - tParam, 3) * p0 +
+                3 * Mathf.Pow(1 - tParam, 2) * tParam * p1 +
+                3 * (1 - tParam) * Mathf.Pow(tParam, 2) * p2 +
+                Mathf.Pow(tParam, 3) * p3;
 
-        // Điều chỉnh hướng của đối tượng
-        transform.LookAt(target);
-    }*/
+            transform.position = objPos;
+            yield return new WaitForEndOfFrame();
+        }
 
+        tParam = 0f;
+    }
 }
  
