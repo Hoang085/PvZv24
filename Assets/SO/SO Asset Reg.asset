@@ -16,3 +16,4 @@ MonoBehaviour:
   winEvent: {fileID: 11400000, guid: d8911e88b671b1141b82d60930e1c18f, type: 2}
   loseEvent: {fileID: 11400000, guid: bd32347261aa4014caf3163af273597e, type: 2}
   isPlayingGameVariable: {fileID: 11400000, guid: 5363985dffd6790409a0a5db26020f39, type: 2}
+  stringName: {fileID: 11400000, guid: 9073f9a1ef391c249805057191949910, type: 2}

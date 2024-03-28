@@ -16,4 +16,6 @@ public class SOAssetReg : GlobalConfig<SOAssetReg>
 
     [BoxGroup("Variables")] public BoolVariable isPlayingGameVariable;
 
+    [BoxGroup("String Game Event")] public StringGameEvent stringName;
+
 }

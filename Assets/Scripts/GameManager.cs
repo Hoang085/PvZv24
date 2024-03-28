@@ -34,6 +34,10 @@ public class GameManager : MonoBehaviour
     private GameEvent UpdateSun;
     [SerializeField]
     private GameEvent WinEvent;
+    [SerializeField]
+    private StringGameEvent PlantName;
+
+
 
     private void Start()
     {
@@ -46,6 +50,7 @@ public class GameManager : MonoBehaviour
         UpdateSun.AddListener(UpdateSunAmount);
         WinEvent.AddListener(WinGame);
         LoseEvent.AddListener(LoseGame);
+        //PlantName.AddListener(receiData);
     }
 
     private void OnDisable()
@@ -53,6 +58,7 @@ public class GameManager : MonoBehaviour
         UpdateSun.RemoveListener(UpdateSunAmount);
         WinEvent.RemoveListener(WinGame);
         LoseEvent.RemoveListener(LoseGame);
+        //PlantName.RemoveListener(receiData);
     }
 
     public void BuyPlant(GameObject plant, Sprite sprite, int pricePlant)
@@ -141,4 +147,13 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         loseScreen.SetActive(true);
     }
+
+    /*public void receiData(string namedata)
+    {
+        
+        var data = namedata.Split("_");
+
+    }*/
+
+
 }

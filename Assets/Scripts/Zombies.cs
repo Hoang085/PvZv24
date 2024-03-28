@@ -32,23 +32,28 @@ public class Zombies : MonoBehaviour
 
     private void Update()
     {
-        if(Health >= 10)
-        {
-            GetComponent<SpriteRenderer>().sprite = type.sprite;
-        }
-        else if (Health <= 1)
-        {
-            GetComponent<SpriteRenderer>().sprite = type.deathSprite;
-        }else if (Health <10)
-        {
-            GetComponent<SpriteRenderer>().sprite= type.defaultSprite;
-        }
+        setSprite();
         if (!targetPlant)
         {
             isStop = false;
         }
     }
 
+    private void setSprite()
+    {
+        if (Health >= 10)
+        {
+            GetComponent<SpriteRenderer>().sprite = type.sprite;
+        }
+        else if (Health <= 1)
+        {
+            GetComponent<SpriteRenderer>().sprite = type.deathSprite;
+        }
+        else if (Health < 10)
+        {
+            GetComponent<SpriteRenderer>().sprite = type.defaultSprite;
+        }
+    }
     public void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.layer == 9)
@@ -91,18 +96,6 @@ public class Zombies : MonoBehaviour
         {
             Freeze();
         }
-        if (Health <= 0)
-        {
-            Health = type.health;
-            SOAssetReg.Instance.MainSaveData.Value.ZombieDeath += 1;
-            if (SOAssetReg.Instance.MainSaveData.Value.ZombieDeath == zombieSpawner.zombieMax)
-                SOAssetReg.Instance.winEvent.Raise();
-            ObjectPoolManager.ReturnObjectToPool(gameObject);
-        }
-    }
-    public void ReceiveDamgebybomb(float Damage)
-    {
-        Health -= Damage;
         if (Health <= 0)
         {
             Health = type.health;

@@ -27,6 +27,7 @@ public class PlantSlot : MonoBehaviour
     {
         if(SOAssetReg.Instance.MainSaveData.Value.SunAmount >= price)
         {
+            //SOAssetReg.Instance.stringName.Raise(price.ToString());
             gameManager.BuyPlant(plantObject, plantSprite, price);
         }
         else
