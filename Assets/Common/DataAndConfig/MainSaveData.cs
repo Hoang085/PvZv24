@@ -9,8 +9,7 @@ public class MainSaveData
     public int LevelCurrent;
     public int SunAmount;
     public int ZombieDeath;
+    public int ZombieMax;
 
-    [TitleGroup("GameEvents")] public GameEvent UpdateSun;
-    [TitleGroup("GameEvents")] public GameEvent WinEvent;
-    [TitleGroup("GameEvents")] public GameEvent LoseEvent;
+    
 }

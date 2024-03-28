@@ -17,6 +17,7 @@ public class ZombieSpawner : MonoBehaviour
     public void Start()
     {
         SOAssetReg.Instance.MainSaveData.Value.ZombieDeath = 0;
+        SOAssetReg.Instance.MainSaveData.Value.ZombieMax = zombieMax;
         InvokeRepeating("SpawnZombie", 15, zombieDelay);
 
         foreach (ZombieTypeProb zom in zombieTypes)

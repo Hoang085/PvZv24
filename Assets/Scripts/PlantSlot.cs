@@ -8,18 +8,16 @@ using UnityEngine.UI;
 public class PlantSlot : MonoBehaviour
 {
     public Sprite plantSprite;
-    public GameObject plantObject;
-    
+    public GameObject plantObject; 
     public int price;
 
     public Image Icon;
     public TextMeshProUGUI priceText;
-
-    private GameManager gameManager;
+    [SerializeField] private string nameObj;
+    [SerializeField] private string spriteObj;
 
     private void Start()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         GetComponent<Button>().onClick.AddListener(BuyPlant);
     }
 
@@ -27,8 +25,7 @@ public class PlantSlot : MonoBehaviour
     {
         if(SOAssetReg.Instance.MainSaveData.Value.SunAmount >= price)
         {
-            //SOAssetReg.Instance.stringName.Raise(price.ToString());
-            gameManager.BuyPlant(plantObject, plantSprite, price);
+            SOAssetReg.Instance.stringName.Raise(price + "_" + nameObj + "_" + spriteObj);
         }
         else
         {

@@ -28,45 +28,34 @@ public class GameManager : MonoBehaviour
     private GameObject curPlant;
     private GameObject curShovel;
 
-    [SerializeField]
-    private GameEvent LoseEvent;
-    [SerializeField]
-    private GameEvent UpdateSun;
-    [SerializeField]
-    private GameEvent WinEvent;
-    [SerializeField]
-    private StringGameEvent PlantName;
-
+    [SerializeField] private List<GameObject> listPlant;
+    [SerializeField] private List<Sprite> listSpritePlant;
 
 
     private void Start()
     {
         SOAssetReg.Instance.MainSaveData.Value.SunAmount = 75;
-        UpdateSun.Raise();
+        SOAssetReg.Instance.updateSun.Raise();
         AudioManager1.Instance.PlayMusic("Theme");
     }
     private void OnEnable()
     {
-        UpdateSun.AddListener(UpdateSunAmount);
-        WinEvent.AddListener(WinGame);
-        LoseEvent.AddListener(LoseGame);
-        //PlantName.AddListener(receiData);
+        SOAssetReg.Instance.updateSun.AddListener(UpdateSunAmount);
+        SOAssetReg.Instance.winEvent.AddListener(WinGame);
+        SOAssetReg.Instance.loseEvent.AddListener(LoseGame);
+        SOAssetReg.Instance.stringName.AddListener(receiData);
     }
 
     private void OnDisable()
     {
-        UpdateSun.RemoveListener(UpdateSunAmount);
-        WinEvent.RemoveListener(WinGame);
-        LoseEvent.RemoveListener(LoseGame);
-        //PlantName.RemoveListener(receiData);
+        SOAssetReg.Instance.updateSun.RemoveListener(UpdateSunAmount);
+        SOAssetReg.Instance.winEvent.RemoveListener(WinGame);
+        SOAssetReg.Instance.loseEvent.RemoveListener(LoseGame);
+        SOAssetReg.Instance.stringName.RemoveListener(receiData);
     }
 
-    public void BuyPlant(GameObject plant, Sprite sprite, int pricePlant)
+    public void BuyPlant()
     {
-        currentPlant = plant;
-        currentPlantSprite = sprite;
-        PricePlant = pricePlant;
-
         Vector2 mousePos = Input.mousePosition;
         Vector2 plantPos = Camera.main.ScreenToWorldPoint(mousePos);
         curPlant = Instantiate(currentPlant, plantPos, Quaternion.identity);
@@ -97,7 +86,7 @@ public class GameManager : MonoBehaviour
                 currentPlantSprite = null;
                 currentPlant = null;
                 SOAssetReg.Instance.MainSaveData.Value.SunAmount -= PricePlant;
-                SOAssetReg.Instance.MainSaveData.Value.UpdateSun.Raise();
+                SOAssetReg.Instance.updateSun.Raise();
 
             }
             else if (Input.GetMouseButtonDown(0) && hit.collider.GetComponent<Tile>())
@@ -148,12 +137,14 @@ public class GameManager : MonoBehaviour
         loseScreen.SetActive(true);
     }
 
-    /*public void receiData(string namedata)
+    public void receiData(string namedata)
     {
-        
         var data = namedata.Split("_");
-
-    }*/
+        PricePlant = int.Parse(data[0]);
+        currentPlant = listPlant.Find(s => s.name == data[1]);
+        currentPlantSprite = listSpritePlant.Find(s => s.name == data[2]);
+        BuyPlant();
+    }
 
 
 }

@@ -10,12 +10,10 @@ public class Zombies : MonoBehaviour
     private float eatCooldown;
     private AudioSource source;
     private bool isStop = false;
-    private ZombieSpawner zombieSpawner;
 
     public Plant targetPlant;
-    public LayerMask plantMask;
     public ZombieType type;
-    public List<GameObject> listZombieDeath;
+
 
     private void Start()
     {
@@ -25,35 +23,17 @@ public class Zombies : MonoBehaviour
         damage = type.damage;
         range = type.range;
         eatCooldown = type.eatCooldown;
-
         GetComponent<SpriteRenderer>().sprite = type.sprite;
-        zombieSpawner = GameObject.Find("ZombiePawner").GetComponent<ZombieSpawner>();
     }
 
     private void Update()
     {
-        setSprite();
         if (!targetPlant)
         {
             isStop = false;
         }
     }
 
-    private void setSprite()
-    {
-        if (Health >= 10)
-        {
-            GetComponent<SpriteRenderer>().sprite = type.sprite;
-        }
-        else if (Health <= 1)
-        {
-            GetComponent<SpriteRenderer>().sprite = type.deathSprite;
-        }
-        else if (Health < 10)
-        {
-            GetComponent<SpriteRenderer>().sprite = type.defaultSprite;
-        }
-    }
     public void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.layer == 9)
@@ -71,7 +51,7 @@ public class Zombies : MonoBehaviour
             Time.timeScale = 0;
             AudioManager1.Instance.musicSource.Stop();
             AudioManager1.Instance.PlaySFX("loseSound");
-            SOAssetReg.Instance.MainSaveData.Value.LoseEvent.Raise();
+            SOAssetReg.Instance.loseEvent.Raise();
         }
     }
 
@@ -92,6 +72,18 @@ public class Zombies : MonoBehaviour
     {
         source.PlayOneShot(type.hitClips[Random.Range(0, type.hitClips.Length)]);
         Health -= Damage;
+        if (Health >= 10)
+        {
+            GetComponent<SpriteRenderer>().sprite = type.sprite;
+        }
+        else if (Health <= 1)
+        {
+            GetComponent<SpriteRenderer>().sprite = type.deathSprite;
+        }
+        else if (Health < 10)
+        {
+            GetComponent<SpriteRenderer>().sprite = type.defaultSprite;
+        }
         if (freeze)
         {
             Freeze();
@@ -100,7 +92,7 @@ public class Zombies : MonoBehaviour
         {
             Health = type.health;
             SOAssetReg.Instance.MainSaveData.Value.ZombieDeath += 1;
-            if (SOAssetReg.Instance.MainSaveData.Value.ZombieDeath == zombieSpawner.zombieMax)
+            if (SOAssetReg.Instance.MainSaveData.Value.ZombieDeath == SOAssetReg.Instance.MainSaveData.Value.ZombieMax)
                 SOAssetReg.Instance.winEvent.Raise();
             ObjectPoolManager.ReturnObjectToPool(gameObject);
         }

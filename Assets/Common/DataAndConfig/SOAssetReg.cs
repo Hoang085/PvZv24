@@ -13,6 +13,7 @@ public class SOAssetReg : GlobalConfig<SOAssetReg>
 
     [BoxGroup("Game Event")] public GameEvent winEvent;
     [BoxGroup("Game Event")] public GameEvent loseEvent;
+    [BoxGroup("Game Event")] public GameEvent updateSun;
 
     [BoxGroup("Variables")] public BoolVariable isPlayingGameVariable;
 

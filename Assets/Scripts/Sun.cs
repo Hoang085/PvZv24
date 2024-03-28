@@ -7,13 +7,11 @@ public class Sun : MonoBehaviour
 {
     public float droptoYPos;
     private float speed = .25f;
-    private GameManager gameManager;
     private bool isOnTheMove;
     private float destroyTime = 3f;
 
     private void Start()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         isOnTheMove = true;
         StartCoroutine(CheckMoving());
     }
@@ -51,7 +49,7 @@ public class Sun : MonoBehaviour
     private void OnMouseDown()
     {
         SOAssetReg.Instance.MainSaveData.Value.SunAmount += 25;
-        SOAssetReg.Instance.MainSaveData.Value.UpdateSun.Raise();
+        SOAssetReg.Instance.updateSun.Raise();
         AudioManager1.Instance.PlaySFX("sunSound");
         ObjectPoolManager.ReturnObjectToPool(gameObject);
     }
