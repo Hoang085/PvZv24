@@ -1,4 +1,4 @@
-/*using UnityEngine;
+using UnityEngine;
 using System;
 
 namespace PVZ.Utils
@@ -91,4 +91,4 @@ namespace PVZ.Utils
 			_applicationIsQuitting = true;
 		}
 	}
-}*/
+}
