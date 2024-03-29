@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     private GameObject currentPlant;
     private Sprite currentPlantSprite;
     private int PricePlant;
+    private GameObject currentShovel;
 
     [SerializeField]
     private GameObject winScreen;
@@ -30,6 +31,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private List<GameObject> listPlant;
     [SerializeField] private List<Sprite> listSpritePlant;
+    [SerializeField] private List<GameObject> listShovel;
 
 
     private void Start()
@@ -44,6 +46,7 @@ public class GameManager : MonoBehaviour
         SOAssetReg.Instance.winEvent.AddListener(WinGame);
         SOAssetReg.Instance.loseEvent.AddListener(LoseGame);
         SOAssetReg.Instance.stringName.AddListener(receiData);
+        SOAssetReg.Instance.shovelStringName.AddListener(receiShovel);
     }
 
     private void OnDisable()
@@ -52,6 +55,7 @@ public class GameManager : MonoBehaviour
         SOAssetReg.Instance.winEvent.RemoveListener(WinGame);
         SOAssetReg.Instance.loseEvent.RemoveListener(LoseGame);
         SOAssetReg.Instance.stringName.RemoveListener(receiData);
+        SOAssetReg.Instance.shovelStringName.RemoveListener(receiShovel);
     }
 
     public void BuyPlant()
@@ -61,11 +65,11 @@ public class GameManager : MonoBehaviour
         curPlant = Instantiate(currentPlant, plantPos, Quaternion.identity);
     }
     
-    public void selectSholve(GameObject shovel)
+    public void selectSholve()
     {
         Vector2 mousePos = Input.mousePosition;
         Vector2 shovelPos = Camera.main.ScreenToWorldPoint(mousePos);
-        curShovel = Instantiate(shovel, shovelPos, Quaternion.identity);
+        curShovel = Instantiate(currentShovel, shovelPos, Quaternion.identity);
     }
 
     private void Update()
@@ -137,13 +141,19 @@ public class GameManager : MonoBehaviour
         loseScreen.SetActive(true);
     }
 
-    public void receiData(string namedata)
+    private void receiData(string namedata)
     {
         var data = namedata.Split("_");
         PricePlant = int.Parse(data[0]);
         currentPlant = listPlant.Find(s => s.name == data[1]);
         currentPlantSprite = listSpritePlant.Find(s => s.name == data[2]);
         BuyPlant();
+    }
+    private void receiShovel(string nameShovel)
+    {
+        var data = nameShovel.Split("_");
+        currentShovel = listShovel.Find(s => s.name == data[1]);
+        selectSholve();
     }
 
 

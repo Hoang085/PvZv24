@@ -13,8 +13,6 @@ public class PlantSlot : MonoBehaviour
 
     public Image Icon;
     public TextMeshProUGUI priceText;
-    [SerializeField] private string nameObj;
-    [SerializeField] private string spriteObj;
 
     private void Start()
     {
@@ -25,7 +23,7 @@ public class PlantSlot : MonoBehaviour
     {
         if(SOAssetReg.Instance.MainSaveData.Value.SunAmount >= price)
         {
-            SOAssetReg.Instance.stringName.Raise(price + "_" + nameObj + "_" + spriteObj);
+            SOAssetReg.Instance.stringName.Raise(price + "_" + plantObject.name + "_" + plantSprite.name);
         }
         else
         {

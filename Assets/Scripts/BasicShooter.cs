@@ -50,7 +50,6 @@ public class BasicShooter : MonoBehaviour
         {
             ObjectPoolManager.SpawnObject(bullet, shootOrigin.position, Quaternion.identity, ObjectPoolManager.PoolType.Bullet);
         }
-        print("a");
     }
     IEnumerator waitForShoot()
     {

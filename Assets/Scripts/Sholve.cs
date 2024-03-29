@@ -12,15 +12,15 @@ public class Sholve : MonoBehaviour
 
     private GameManager gameManager;
 
+
     void Start()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         GetComponent<Button>().onClick.AddListener(selectSholve);
     }
 
     void selectSholve()
     {
-        gameManager.selectSholve(shovelObject);
+        SOAssetReg.Instance.shovelStringName.Raise(shovelSprite.name + "_" + shovelObject.name);
     }
 
     private void OnValidate()
