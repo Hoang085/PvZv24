@@ -15,6 +15,8 @@ public class SOAssetReg : GlobalConfig<SOAssetReg>
     [BoxGroup("Game Event")] public GameEvent loseEvent;
     [BoxGroup("Game Event")] public GameEvent updateSun;
 
+    [BoxGroup("FLoat Game Event")] public FloatGameEvent ZombieSpawnCountEvent;
+
     [BoxGroup("Variables")] public BoolVariable isPlayingGameVariable;
 
     [BoxGroup("String Game Event")] public StringGameEvent stringName;

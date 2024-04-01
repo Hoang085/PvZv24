@@ -1,3 +1,4 @@
+using PVZ.Utils;
 using ScriptableObjectArchitecture;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class GameManager : MonoBehaviour
+public class GameManager : ManualSingletonMono<GameManager>
 {
     private GameObject currentPlant;
     private Sprite currentPlantSprite;
@@ -38,7 +39,6 @@ public class GameManager : MonoBehaviour
     {
         SOAssetReg.Instance.MainSaveData.Value.SunAmount = 75;
         SOAssetReg.Instance.updateSun.Raise();
-        AudioManager1.Instance.PlayMusic("Theme");
     }
     private void OnEnable()
     {
@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0) && !hit.collider.GetComponent<Tile>().HasPlant)
             {
-                AudioManager1.Instance.PlaySFX("setPlant");
+                AudioManager.Instance.PlaySFX("setPlant");
                 hit.collider.GetComponent<Tile>().HasPlant = true;
                 curPlant.GetComponent<Plant>().tile = hit.collider.GetComponent<Tile>();
                 curPlant = null;
@@ -131,8 +131,8 @@ public class GameManager : MonoBehaviour
     } 
     private void WinGame()
     {
-        AudioManager1.Instance.musicSource.Stop();
-        AudioManager1.Instance.PlaySFX("winSound");
+        AudioManager.Instance.musicSource.Stop();
+        AudioManager.Instance.PlaySFX("winSound");
         winScreen.SetActive(true);
     }
     private void LoseGame()

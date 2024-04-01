@@ -50,7 +50,7 @@ public class Sun : MonoBehaviour
     {
         SOAssetReg.Instance.MainSaveData.Value.SunAmount += 25;
         SOAssetReg.Instance.updateSun.Raise();
-        AudioManager1.Instance.PlaySFX("sunSound");
+        AudioManager.Instance.PlaySFX("sunSound");
         ObjectPoolManager.ReturnObjectToPool(gameObject);
     }
 

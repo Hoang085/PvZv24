@@ -49,8 +49,8 @@ public class Zombies : MonoBehaviour
         if (other.gameObject.layer == 14)
         {
             Time.timeScale = 0;
-            AudioManager1.Instance.musicSource.Stop();
-            AudioManager1.Instance.PlaySFX("loseSound");
+            AudioManager.Instance.musicSource.Stop();
+            AudioManager.Instance.PlaySFX("loseSound");
             SOAssetReg.Instance.loseEvent.Raise();
         }
     }

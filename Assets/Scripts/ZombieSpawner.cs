@@ -11,7 +11,6 @@ public class ZombieSpawner : MonoBehaviour
     private List<ZombieType> probList = new List<ZombieType>();
     public int zombieMax;
     public int zombiesSpawned;
-    public Slider progessBar;
     public float zombieDelay = 5;
 
     public void Start()
@@ -27,11 +26,6 @@ public class ZombieSpawner : MonoBehaviour
                 probList.Add(zom.type);
             }
         }
-        progessBar.maxValue = zombieMax;
-    }
-    private void Update()
-    {
-        progessBar.value = zombiesSpawned;
     }
     public void SpawnZombie()
     {
@@ -39,7 +33,7 @@ public class ZombieSpawner : MonoBehaviour
         {
             return;
         }
-        
+        SOAssetReg.Instance.ZombieSpawnCountEvent.Raise(1);
         zombiesSpawned++;
         int r = Random.Range(0,SpawnPoint.Length);
         GameObject myZombie = ObjectPoolManager.SpawnObject(zombie, SpawnPoint[r].position,Quaternion.identity,ObjectPoolManager.PoolType.GameObject);

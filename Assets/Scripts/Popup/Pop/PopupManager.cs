@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using PVZ.Utils;
 
-public class PopupManager : MonoBehaviour
+public class PopupManager : ManualSingletonMono<PopupManager>
 {
     public GameObject popupMenu;
     public void OpenMenu()
@@ -25,7 +26,7 @@ public class PopupManager : MonoBehaviour
     }
     public void QuitlV()
     {
-        AudioManager1.Instance.musicSource.Stop();
+        AudioManager.Instance.musicSource.Stop();
         SceneManager.LoadScene(0);
         Time.timeScale = 1;
     }
