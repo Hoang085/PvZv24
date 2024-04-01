@@ -13,7 +13,14 @@ using UnityEngine.UI;
 
         public bool Loading { get; private set; }
 
-        public void LoadScene(string sceneName, Func<bool> launchCondition = null)
+
+
+    private void Start()
+    {
+        UIManager.Instance.gameObject.SetActive(false);
+        LoadScene("Main Menu");
+    }
+    public void LoadScene(string sceneName, Func<bool> launchCondition = null)
         {
             StartCoroutine(LoadSceneRoutine(sceneName, launchCondition));
         }
@@ -43,7 +50,6 @@ using UnityEngine.UI;
             }
 
             ao.allowSceneActivation = true;
-            AudioManager.Instance.PlayMusic("Theme");
         }
 
         public void OnLoadingFinished()

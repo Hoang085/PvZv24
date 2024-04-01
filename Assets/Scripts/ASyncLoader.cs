@@ -11,6 +11,8 @@ public class ASyncLoader : MonoBehaviour
     public void LoadLevelBtn()
     {
         SceneManager.LoadSceneAsync($"Level {SOAssetReg.Instance.MainSaveData.Value.LevelCurrent}");
+        UIManager.Instance.gameObject.SetActive(true);
+        AudioManager.Instance.PlayMusic("Theme");
     }
     private void Start()
     {
@@ -18,13 +20,10 @@ public class ASyncLoader : MonoBehaviour
     }
     public void NewGame()
     {
+        SOAssetReg.Instance.MainSaveData.Value.ZombieMax = 0;
         SOAssetReg.Instance.MainSaveData.Value.LevelCurrent = 1;
         SOAssetReg.Instance.MainSaveData.Value.ZombieDeath = 0;
         LoadLevelBtn();
-    }
-    private float WaitForSeconds(float v)
-    {
-        return Time.deltaTime * v;
     }
 
     public void QuitGame()

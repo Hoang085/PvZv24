@@ -4132,7 +4132,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3598969449033469616}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PopupManager, Assembly-CSharp
         m_MethodName: BacktoGame
         m_Mode: 1
@@ -5423,7 +5423,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3598969449033469616}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PopupManager, Assembly-CSharp
         m_MethodName: OpenMenu
         m_Mode: 1
@@ -5447,7 +5447,6 @@ GameObject:
   - component: {fileID: 4429686906329553558}
   - component: {fileID: 5491729704720422955}
   - component: {fileID: 1917189993909223307}
-  - component: {fileID: 3598969449033469616}
   - component: {fileID: 5415942593768985824}
   m_Layer: 5
   m_Name: Canvas
@@ -5545,20 +5544,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 16375
---- !u!114 &3598969449033469616
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4778010241818860640}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a63b40c83d695a24b918e2b0df8cb2c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dontDestroyOnload: 0
-  popupMenu: {fileID: 3067433194685236569}
 --- !u!114 &5415942593768985824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5571,6 +5556,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77e8af57989819a4dab3a42846b1eb82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dontDestroyOnload: 0
+  ZombieBar: {fileID: 0}
+  popupMenu: {fileID: 0}
+  winScreen: {fileID: 0}
+  loseScreen: {fileID: 0}
 --- !u!1 &4845639978602893973
 GameObject:
   m_ObjectHideFlags: 0
@@ -5768,7 +5758,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3598969449033469616}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PopupManager, Assembly-CSharp
         m_MethodName: QuitlV
         m_Mode: 1
@@ -6084,7 +6074,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3598969449033469616}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PopupManager, Assembly-CSharp
         m_MethodName: ResetLV
         m_Mode: 1
@@ -6426,7 +6416,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3598969449033469616}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PopupManager, Assembly-CSharp
         m_MethodName: ResetLV
         m_Mode: 1
@@ -7862,7 +7852,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3598969449033469616}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PopupManager, Assembly-CSharp
         m_MethodName: NextLV
         m_Mode: 1
@@ -9520,7 +9510,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3598969449033469616}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PopupManager, Assembly-CSharp
         m_MethodName: QuitlV
         m_Mode: 1
@@ -10306,7 +10296,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3598969449033469616}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PopupManager, Assembly-CSharp
         m_MethodName: QuitlV
         m_Mode: 1
@@ -11074,7 +11064,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3598969449033469616}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PopupManager, Assembly-CSharp
         m_MethodName: ResetLV
         m_Mode: 1

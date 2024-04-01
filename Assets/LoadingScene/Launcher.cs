@@ -17,7 +17,8 @@ public class Launcher : MonoBehaviour
 
     void Start()
     {
-        LoadingScreen.Instance.LoadScene("Main Menu",()=>LaunchCondition);
+        //UIManager.Instance.gameObject.SetActive(false);
+        //LoadingScreen.Instance.LoadScene("Main Menu",()=>LaunchCondition);
     }
 
 }

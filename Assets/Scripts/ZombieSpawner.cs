@@ -1,9 +1,10 @@
+using PVZ.Utils;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ZombieSpawner : MonoBehaviour
+public class ZombieSpawner : ManualSingletonMono<ZombieSpawner>
 {
     public Transform[] SpawnPoint;
     public GameObject zombie;
