@@ -20,33 +20,34 @@ public class UIManager : ManualSingletonMono<UIManager>
         SOAssetReg.Instance.ZombieSpawnCountEvent.RemoveListener(ProcessZombie);
     }
 
-    void ProcessZombie(float count)
+    private void ProcessZombie(float count)
     {
         ZombieBar.maxValue = SOAssetReg.Instance.MainSaveData.Value.ZombieMax;
         print(ZombieBar.maxValue);
         ZombieBar.value += count;
     }
-    public void OpenMenu()
+    private void OpenMenu()
     {
         popupMenu.SetActive(true);
         Time.timeScale = 0;
     }
-    public void BacktoGame()
+    private void BacktoGame()
     {
         popupMenu.SetActive(false);
         Time.timeScale = 1;
     }
-    public void ResetLV()
+    private void ResetLV()
     {
         AudioManager.Instance.musicSource.Play();
         SOAssetReg.Instance.MainSaveData.Value.ZombieMax = ZombieSpawner.Instance.zombieMax;
         ZombieBar.value = 0;
         winScreen.SetActive(false);
         loseScreen.SetActive(false);
+        popupMenu.SetActive(false);
         SceneManager.LoadSceneAsync($"Level {SOAssetReg.Instance.MainSaveData.Value.LevelCurrent}");
         Time.timeScale = 1;
     }
-    public void QuitlV()
+    private void QuitlV()
     {
         ZombieBar.value = 0;
         popupMenu.SetActive(false);
@@ -55,7 +56,7 @@ public class UIManager : ManualSingletonMono<UIManager>
         SceneManager.LoadScene(1);
         Time.timeScale = 1;
     }
-    public void NextLV()
+    private void NextLV()
     {
         AudioManager.Instance.musicSource.Play();
         SOAssetReg.Instance.MainSaveData.Value.ZombieMax = ZombieSpawner.Instance.zombieMax;

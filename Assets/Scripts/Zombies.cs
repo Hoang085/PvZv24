@@ -99,10 +99,10 @@ public class Zombies : MonoBehaviour
     }
     void Freeze()
     {
-        CancelInvoke("UnFreeze");
+        CancelInvoke(nameof(unFreeze));
         GetComponent<SpriteRenderer>().color = Color.blue;
         speed = type.speed / 2;
-        Invoke("UnFreeze", 5);
+        Invoke(nameof(unFreeze), 5);
     }
 
     void unFreeze()

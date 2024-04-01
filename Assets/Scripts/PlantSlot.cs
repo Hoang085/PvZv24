@@ -7,23 +7,22 @@ using UnityEngine.UI;
 
 public class PlantSlot : MonoBehaviour
 {
-    public Sprite plantSprite;
-    public GameObject plantObject; 
-    public int price;
-
-    public Image Icon;
-    public TextMeshProUGUI priceText;
+    [SerializeField] private Sprite plantSprite;
+    [SerializeField] private GameObject plantObject;
+    [SerializeField] private int price;
+    [SerializeField] private Image Icon;
+    [SerializeField] private TextMeshProUGUI priceText;
 
     private void Start()
     {
         GetComponent<Button>().onClick.AddListener(BuyPlant);
     }
 
-    public void BuyPlant()
+    private void BuyPlant()
     {
         if(SOAssetReg.Instance.MainSaveData.Value.SunAmount >= price)
         {
-            SOAssetReg.Instance.stringName.Raise(price + "_" + plantObject.name + "_" + plantSprite.name);
+            SOAssetReg.Instance.stringName.Raise($"{price}_{plantObject.name}_{plantSprite.name}");
         }
         else
         {

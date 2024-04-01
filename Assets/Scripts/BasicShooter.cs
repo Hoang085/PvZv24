@@ -5,13 +5,12 @@ using UnityEngine;
 public class BasicShooter : MonoBehaviour
 {
 
-    public GameObject bullet;
-    public Transform shootOrigin;
-    public float cooldown;
-    public bool isRepeat;
-
-    public float range;
-    public LayerMask shootMask;
+    [SerializeField] private GameObject bullet;
+    [SerializeField] private Transform shootOrigin;
+    [SerializeField] private float cooldown;
+    [SerializeField] private bool isRepeat;
+    [SerializeField] private float range;
+    [SerializeField] private LayerMask shootMask;
 
     private bool canShoot;
     private GameObject target;
@@ -19,7 +18,7 @@ public class BasicShooter : MonoBehaviour
 
     private void Start()
     {
-        Invoke("ResetCooldown", cooldown);
+        Invoke(nameof(ResetCooldown), cooldown);
     }
     private void Update()
     {
@@ -30,16 +29,16 @@ public class BasicShooter : MonoBehaviour
             Shoot();
         }
     }
-    void ResetCooldown()
+    private void ResetCooldown()
     {
         canShoot = true;
     }
-    void Shoot()
+    private void Shoot()
     {
         if (!canShoot)
             return;
         canShoot = false;
-        Invoke("ResetCooldown", cooldown);
+        Invoke(nameof(ResetCooldown), cooldown);
 
         if (isRepeat)
         {
@@ -51,7 +50,7 @@ public class BasicShooter : MonoBehaviour
             ObjectPoolManager.SpawnObject(bullet, shootOrigin.position, Quaternion.identity, ObjectPoolManager.PoolType.Bullet);
         }
     }
-    IEnumerator waitForShoot()
+    private IEnumerator waitForShoot()
     {
         yield return new WaitForSeconds(0.3f);
         ObjectPoolManager.SpawnObject(bullet, shootOrigin.position, Quaternion.identity, ObjectPoolManager.PoolType.Bullet);

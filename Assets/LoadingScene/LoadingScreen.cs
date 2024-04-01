@@ -5,25 +5,23 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-    public class LoadingScreen : ManualSingletonMono<LoadingScreen>
-    {
-        [SerializeField] Canvas canvas;
-        [SerializeField] Image progress;
-        [SerializeField] float minLoadTime = 1f;
+public class LoadingScreen : ManualSingletonMono<LoadingScreen>
+{
+    [SerializeField] Canvas canvas;
+    [SerializeField] Image progress;
+    private float minLoadTime = 2f;
 
-        public bool Loading { get; private set; }
+    public bool Loading { get; private set; }
 
-
-
-    private void Start()
+    public void Start()
     {
         UIManager.Instance.gameObject.SetActive(false);
         LoadScene("Main Menu");
     }
     public void LoadScene(string sceneName, Func<bool> launchCondition = null)
-        {
-            StartCoroutine(LoadSceneRoutine(sceneName, launchCondition));
-        }
+    {
+        StartCoroutine(LoadSceneRoutine(sceneName, launchCondition));
+    }
 
         IEnumerator LoadSceneRoutine(string sceneName, Func<bool> launchCondition)
         {
@@ -57,4 +55,4 @@ using UnityEngine.UI;
             Loading = false;
             canvas.gameObject.SetActive(false);
         }
-    }
+}

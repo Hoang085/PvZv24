@@ -6,21 +6,18 @@ using UnityEngine.UI;
 
 public class Sholve : MonoBehaviour
 {
-    public Sprite shovelSprite;
-    public GameObject shovelObject;
-    public Image Icon;
+    [SerializeField] private Sprite shovelSprite;
+    [SerializeField] private GameObject shovelObject;
+    [SerializeField] private Image Icon;
 
-    private GameManager gameManager;
-
-
-    void Start()
+    private void Start()
     {
         GetComponent<Button>().onClick.AddListener(selectSholve);
     }
 
-    void selectSholve()
+    private void selectSholve()
     {
-        SOAssetReg.Instance.shovelStringName.Raise(shovelSprite.name + "_" + shovelObject.name);
+        SOAssetReg.Instance.shovelStringName.Raise($"{shovelSprite.name}_{shovelObject.name}");
     }
 
     private void OnValidate()

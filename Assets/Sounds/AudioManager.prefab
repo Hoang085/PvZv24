@@ -308,7 +308,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 84e78c449c0094d4fb12bbcee8494328, type: 3}
     volume: 1
     pitch: 1
-    loop: 0
+    loop: 1
     source: {fileID: 0}
   sfxSounds:
   - nameSound: loseSound

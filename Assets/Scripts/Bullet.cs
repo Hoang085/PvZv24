@@ -9,8 +9,8 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] LayerMask shootMask;
     [SerializeField] bool isProjectTile;
-    public float Damage;
-    public bool freeze;
+    [SerializeField] private float Damage;
+    [SerializeField] private bool freeze;
 
     private float Speed =1.2f;
     private float destroyTime = 10f;
@@ -20,7 +20,7 @@ public class Bullet : MonoBehaviour
     private Vector2 objPos;
     private GameObject target;
 
-    void Start()
+    private void Start()
     {
         tParam = 0;
     }

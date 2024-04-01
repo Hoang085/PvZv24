@@ -8,7 +8,7 @@ using System;
 
 public class ASyncLoader : MonoBehaviour
 {
-    public void LoadLevelBtn()
+    private void LoadLevelBtn()
     {
         SceneManager.LoadSceneAsync($"Level {SOAssetReg.Instance.MainSaveData.Value.LevelCurrent}");
         UIManager.Instance.gameObject.SetActive(true);
@@ -18,7 +18,7 @@ public class ASyncLoader : MonoBehaviour
     {
         LoadingScreen.Instance.OnLoadingFinished();
     }
-    public void NewGame()
+    private void NewGame()
     {
         SOAssetReg.Instance.MainSaveData.Value.ZombieMax = 0;
         SOAssetReg.Instance.MainSaveData.Value.LevelCurrent = 1;
@@ -26,7 +26,7 @@ public class ASyncLoader : MonoBehaviour
         LoadLevelBtn();
     }
 
-    public void QuitGame()
+    private void QuitGame()
     {
 #if UNITY_EDITOR
         EditorApplication.ExitPlaymode();

@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class SunFlower1 : MonoBehaviour
 {
-    public GameObject sunObject;
-    public float coolDown;
+    [SerializeField] private GameObject sunObject;
+    private float coolDown = 10f;
 
     private void Start()
     {
-        InvokeRepeating("SpawnSun", coolDown, coolDown);
+        InvokeRepeating(nameof(SpawnSun), coolDown, coolDown);
     }
 
     void SpawnSun()

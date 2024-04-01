@@ -5,8 +5,7 @@ using UnityEngine;
 public class Plant : MonoBehaviour
 {
 
-    public float health;
-
+    [SerializeField] private float health;
     public Tile tile;
 
     private void Start()

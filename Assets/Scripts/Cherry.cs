@@ -5,26 +5,22 @@ using UnityEngine;
 
 public class Cherry : MonoBehaviour
 {
-    [SerializeField]
-    private LayerMask zombieMask;
+    [SerializeField]private LayerMask zombieMask;
+    [SerializeField] private float delay = 3f;
+    [SerializeField] private float radius = 0.5f;
+    [SerializeField] private GameObject explosionEffect;
 
-    public float delay = 3f;
-    public float radius = 0.5f;
-    public GameObject explosionEffect;
-
-    float coutdown;
-    bool hasExploded = false;
-
-    private List<Zombies> objectToBomb = new List<Zombies>(); 
+    private float coutdown;
+    private bool hasExploded = false;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         coutdown = delay;
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         coutdown -= Time.deltaTime;
         if (coutdown <= 0f && !hasExploded)
@@ -34,7 +30,7 @@ public class Cherry : MonoBehaviour
         }
         Vector2 objPos = gameObject.transform.position;
     }
-    void Explode()
+    private void Explode()
     {
         gameObject.GetComponent<SpriteRenderer>().enabled = false;
         Instantiate(explosionEffect, gameObject.transform);
@@ -45,13 +41,12 @@ public class Cherry : MonoBehaviour
         {
             Rigidbody2D rb = nearbyObject.GetComponent<Rigidbody2D>();
             Zombies zombies = nearbyObject.GetComponent<Zombies>();
-            //objectToBomb.Add(zombies);
             zombies.ReceiveDamge(1000f, false);
         }
 
         StartCoroutine(waittoBomb());
     }
-    IEnumerator waittoBomb()
+    private IEnumerator waittoBomb()
     {
         yield return new WaitForSeconds(1f);
         Plant plant = GetComponent<Plant>();

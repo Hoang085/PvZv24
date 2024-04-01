@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class ProjectileShooter : MonoBehaviour
 {
-    public GameObject bullet;
-    public Transform shootOrigin;
-    public float cooldown;
-
-    public float range;
-    public LayerMask shootMask;
-
-    public float lauchForce = 10f;
+    [SerializeField] private GameObject bullet;
+    [SerializeField] private Transform shootOrigin;
+    [SerializeField] private float cooldown;
+    [SerializeField] private float range;
+    [SerializeField] private LayerMask shootMask;
+    [SerializeField] private float lauchForce = 10f;
 
     private bool canShoot;
     private GameObject target;
@@ -19,7 +17,7 @@ public class ProjectileShooter : MonoBehaviour
 
     private void Start()
     {
-        Invoke("ResetCooldown", cooldown);
+        Invoke(nameof(ResetCooldown), cooldown);
     }
     private void Update()
     {
@@ -39,7 +37,7 @@ public class ProjectileShooter : MonoBehaviour
         if (!canShoot)
             return;
         canShoot = false;
-        Invoke("ResetCooldown", cooldown);
+        Invoke(nameof(ResetCooldown), cooldown);
         ObjectPoolManager.SpawnObject(bullet, shootOrigin.position, Quaternion.identity, ObjectPoolManager.PoolType.Bullet);
  
     }
