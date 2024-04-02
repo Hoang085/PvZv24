@@ -1,4 +1,5 @@
 using PVZ.Utils;
+using ScriptableObjectArchitecture;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,18 +7,23 @@ using UnityEngine.UI;
 
 public class ZombieSpawner : ManualSingletonMono<ZombieSpawner>
 {
+    public GameEventBase<int> ZombieMax;
+    public GameEventBase<int> ZombieDeath;
+
     [SerializeField] private Transform[] SpawnPoint;
     [SerializeField] private GameObject zombie;
+
     public ZombieTypeProb[] zombieTypes;
-    private List<ZombieType> probList = new List<ZombieType>();
     public int zombieMax;
+
+    private List<ZombieType> probList = new List<ZombieType>();
     private int zombiesSpawned;
     private float zombieDelay = 5;
 
     private void Start()
     {
-        SOAssetReg.Instance.MainSaveData.Value.ZombieDeath = 0;
-        SOAssetReg.Instance.MainSaveData.Value.ZombieMax = zombieMax;
+        ZombieDeath.Raise(0);
+        ZombieMax.Raise(zombieMax);
         InvokeRepeating(nameof(SpawnZombie), 15, zombieDelay);
 
         foreach (ZombieTypeProb zom in zombieTypes)

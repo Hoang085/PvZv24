@@ -10,6 +10,4 @@ public class MainSaveData
     public int SunAmount;
     public int ZombieDeath;
     public int ZombieMax;
-
-    
 }

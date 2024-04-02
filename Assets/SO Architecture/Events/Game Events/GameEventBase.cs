@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 namespace ScriptableObjectArchitecture
 {
@@ -109,6 +110,11 @@ namespace ScriptableObjectArchitecture
         {
             _listeners.RemoveRange(0, _listeners.Count);
             _actions.RemoveRange(0, _actions.Count);
+        }
+
+        public static implicit operator GameEventBase(int v)
+        {
+            throw new NotImplementedException();
         }
     } 
 }

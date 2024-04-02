@@ -1,3 +1,4 @@
+using ScriptableObjectArchitecture;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -5,7 +6,9 @@ using UnityEngine;
 
 public class Sun : MonoBehaviour
 {
+    public GameEventBase<int> updateSun;
     public float droptoYPos;
+
     private float speed = .25f;
     private bool isOnTheMove;
     private float destroyTime = 3f;
@@ -48,11 +51,9 @@ public class Sun : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        SOAssetReg.Instance.MainSaveData.Value.SunAmount += 25;
-        SOAssetReg.Instance.updateSun.Raise();
+        updateSun.Raise(25);
         AudioManager.Instance.PlaySFX("sunSound");
         ObjectPoolManager.ReturnObjectToPool(gameObject);
     }
-
-    
+   
 }

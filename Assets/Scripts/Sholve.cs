@@ -1,3 +1,4 @@
+using ScriptableObjectArchitecture;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,8 @@ using UnityEngine.UI;
 
 public class Sholve : MonoBehaviour
 {
+    public GameEventBase<string> ShovelName;
+
     [SerializeField] private Sprite shovelSprite;
     [SerializeField] private GameObject shovelObject;
     [SerializeField] private Image Icon;
@@ -17,7 +20,7 @@ public class Sholve : MonoBehaviour
 
     private void selectSholve()
     {
-        SOAssetReg.Instance.shovelStringName.Raise($"{shovelSprite.name}_{shovelObject.name}");
+        ShovelName.Raise(shovelObject.name);
     }
 
     private void OnValidate()

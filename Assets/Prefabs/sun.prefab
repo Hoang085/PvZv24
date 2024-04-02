@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab7688c762fda1646a7930a2902e8a42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateSun: {fileID: 11400000, guid: 57d190e566c36274397a1f4a2d8dbab1, type: 2}
   droptoYPos: 0
 --- !u!65 &-2789460347948530464
 BoxCollider:
@@ -115,7 +116,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

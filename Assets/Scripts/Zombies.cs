@@ -1,8 +1,13 @@
+using ScriptableObjectArchitecture;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 public class Zombies : MonoBehaviour
 {
+    public GameEventBase LoseEvent;
+    public GameEventBase WinEvent;
+    public GameEventBase<int> ZombieDeath;
+
     private float speed = 0.006f;
     private float Health;
     private float damage;
@@ -10,10 +15,16 @@ public class Zombies : MonoBehaviour
     private float eatCooldown;
     private AudioSource source;
     private bool isStop = false;
+    private int count = 1;
+    private int zomebieMax;
 
     public Plant targetPlant;
     public ZombieType type;
 
+    private void OnDisable()
+    {
+        ZombieDeath.RemoveListener(CountZombieDeath);
+    }
 
     private void Start()
     {
@@ -51,7 +62,7 @@ public class Zombies : MonoBehaviour
             Time.timeScale = 0;
             AudioManager.Instance.musicSource.Stop();
             AudioManager.Instance.PlaySFX("loseSound");
-            SOAssetReg.Instance.loseEvent.Raise();
+            LoseEvent.Raise();
         }
     }
 
@@ -91,12 +102,22 @@ public class Zombies : MonoBehaviour
         if (Health <= 0)
         {
             Health = type.health;
-            SOAssetReg.Instance.MainSaveData.Value.ZombieDeath += 1;
-            if (SOAssetReg.Instance.MainSaveData.Value.ZombieDeath == SOAssetReg.Instance.MainSaveData.Value.ZombieMax)
-                SOAssetReg.Instance.winEvent.Raise();
+            ZombieDeath.AddListener(CountZombieDeath);
+            if (count == zomebieMax)
+            {
+                
+                WinEvent.Raise();
+            }
             ObjectPoolManager.ReturnObjectToPool(gameObject);
         }
     }
+
+    private void CountZombieDeath(int data)
+    {
+        count += data;
+        ZombieDeath.Raise(count);
+    }
+
     void Freeze()
     {
         CancelInvoke(nameof(unFreeze));
