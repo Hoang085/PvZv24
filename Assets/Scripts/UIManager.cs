@@ -11,6 +11,8 @@ public class UIManager : ManualSingletonMono<UIManager>
 {
     public GameEventBase<int> SunCurrent;
     public GameEventBase<int> updateSun;
+    public GameEventBase<int> ZombieMaxEvent;
+    public FloatGameEvent ZombieSpawnCountEvent;
     public GameEventBase WinEvent;
     public GameEventBase LoseEvent;
 
@@ -21,20 +23,26 @@ public class UIManager : ManualSingletonMono<UIManager>
     [SerializeField] private int currentSuns;
     [SerializeField] private TextMeshProUGUI sunText;
 
+    private int maxZom;
+
+
     private void OnEnable()
     {
         updateSun.AddListener(UpdateSunAmount);
         WinEvent.AddListener(WinGame);
         LoseEvent.AddListener(LoseGame);
-        SOAssetReg.Instance.ZombieSpawnCountEvent.AddListener(ProcessZombie);
+        ZombieMaxEvent.AddListener(GetZombieMax);
+        ZombieSpawnCountEvent.AddListener(ProcessZombie);
     }
     private void OnDisable()
     {
         updateSun.RemoveListener(UpdateSunAmount);
         WinEvent.RemoveListener(WinGame);
         LoseEvent.RemoveListener(LoseGame);
-        SOAssetReg.Instance.ZombieSpawnCountEvent.RemoveListener(ProcessZombie);
+        ZombieMaxEvent.RemoveListener(GetZombieMax);
+        ZombieSpawnCountEvent.RemoveListener(ProcessZombie);
     }
+
     private void Start()
     {
         sunText.text = currentSuns.ToString();
@@ -42,8 +50,7 @@ public class UIManager : ManualSingletonMono<UIManager>
 
     private void ProcessZombie(float count)
     {
-        ZombieBar.maxValue = SOAssetReg.Instance.MainSaveData.Value.ZombieMax;
-        print(ZombieBar.maxValue);
+        ZombieBar.maxValue = maxZom;
         ZombieBar.value += count;
     }
     private void OpenMenu()
@@ -59,7 +66,6 @@ public class UIManager : ManualSingletonMono<UIManager>
     private void ResetLV()
     {
         AudioManager.Instance.musicSource.Play();
-        SOAssetReg.Instance.MainSaveData.Value.ZombieMax = ZombieSpawner.Instance.zombieMax;
         ZombieBar.value = 0;
         winScreen.SetActive(false);
         loseScreen.SetActive(false);
@@ -71,7 +77,9 @@ public class UIManager : ManualSingletonMono<UIManager>
     {
         ZombieBar.value = 0;
         popupMenu.SetActive(false);
-        UIManager.Instance.gameObject.SetActive(false);
+        winScreen.SetActive(false);
+        loseScreen.SetActive(false);
+        OnActive(false);
         AudioManager.Instance.musicSource.Stop();
         SceneManager.LoadScene(1);
         Time.timeScale = 1;
@@ -105,6 +113,10 @@ public class UIManager : ManualSingletonMono<UIManager>
     public void OnActive(bool isACtive)
     {
         gameObject.SetActive(isACtive);
+    }
+    private void GetZombieMax(int data)
+    {
+        maxZom = data;
     }
 }
 

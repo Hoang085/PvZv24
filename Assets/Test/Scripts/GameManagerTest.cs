@@ -1,4 +1,4 @@
-using PVZ.Utils;
+/*using PVZ.Utils;
 using ScriptableObjectArchitecture;
 using System.Collections;
 using System.Collections.Generic;
@@ -124,3 +124,4 @@ public class GameManagerTest : ManualSingletonMono<GameManagerTest>
     }
 
 }
+*/

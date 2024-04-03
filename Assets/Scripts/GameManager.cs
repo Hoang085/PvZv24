@@ -10,60 +10,57 @@ using UnityEngine.EventSystems;
 
 public class GameManager : ManualSingletonMono<GameManager>
 {
-    private GameObject currentPlant;
-    private Sprite currentPlantSprite;
-    private int PricePlant;
-    private GameObject currentShovel;
+    public GameEventBase<int> updateSun;
+    public GameEventBase<int> SunPrice;
+    public GameEventBase<string> GameObjectName;
+    public GameEventBase<string> ShovelName;
 
-    [SerializeField]
-    private GameObject winScreen;
     [SerializeField]
     private LayerMask tileMask;
     [SerializeField]
     private LayerMask plantMask;
-    [SerializeField]
-    private GameObject loseScreen;
 
-    [SerializeField]
-    private TextMeshProUGUI sunText;
-
+    private GameObject currentPlant;
+    private Sprite currentPlantSprite;
+    private GameObject currentShovel;
     private GameObject curPlant;
     private GameObject curShovel;
+    private int PricePlant;
 
     [SerializeField] private List<GameObject> listPlant;
     [SerializeField] private List<Sprite> listSpritePlant;
     [SerializeField] private List<GameObject> listShovel;
 
-    private void Start()
-    {
-        SOAssetReg.Instance.MainSaveData.Value.SunAmount = 75;
-        SOAssetReg.Instance.updateSun.Raise();
-    }
     private void OnEnable()
     {
-        SOAssetReg.Instance.updateSun.AddListener(UpdateSunAmount);
-        SOAssetReg.Instance.winEvent.AddListener(WinGame);
-        SOAssetReg.Instance.loseEvent.AddListener(LoseGame);
-        SOAssetReg.Instance.stringName.AddListener(receiData);
-        SOAssetReg.Instance.shovelStringName.AddListener(receiShovel);
+        SunPrice.AddListener(ReceiPrice);
+        GameObjectName.AddListener(ReceiPlant);
+        ShovelName.AddListener(ReceiShovel);
     }
 
     private void OnDisable()
     {
-        SOAssetReg.Instance.updateSun.RemoveListener(UpdateSunAmount);
-        SOAssetReg.Instance.winEvent.RemoveListener(WinGame);
-        SOAssetReg.Instance.loseEvent.RemoveListener(LoseGame);
-        SOAssetReg.Instance.stringName.RemoveListener(receiData);
-        SOAssetReg.Instance.shovelStringName.RemoveListener(receiShovel);
+        SunPrice.RemoveListener(ReceiPrice);
+        GameObjectName.RemoveListener(ReceiPlant);
+        ShovelName.RemoveListener(ReceiShovel);
     }
 
-    public void BuyPlant()
+    public void MakeObject()
     {
         Vector2 mousePos = Input.mousePosition;
-        Vector2 plantPos = Camera.main.ScreenToWorldPoint(mousePos);
-        curPlant = Instantiate(currentPlant, plantPos, Quaternion.identity);
+        Vector2 objPos = Camera.main.ScreenToWorldPoint(mousePos);
+        curPlant = Instantiate(currentPlant, objPos, Quaternion.identity);
     }
-    
+    private void ReceiPlant(string data)
+    {
+        currentPlant = listPlant.Find(s => s.name == data);
+        MakeObject();
+    }
+    private void ReceiShovel(string data)
+    {
+        currentShovel = listShovel.Find(s => s.name == data);
+        selectSholve();
+    }
     public void selectSholve()
     {
         Vector2 mousePos = Input.mousePosition;
@@ -88,9 +85,7 @@ public class GameManager : ManualSingletonMono<GameManager>
                 curPlant = null;
                 currentPlantSprite = null;
                 currentPlant = null;
-                SOAssetReg.Instance.MainSaveData.Value.SunAmount -= PricePlant;
-                SOAssetReg.Instance.updateSun.Raise();
-
+                updateSun.Raise(-PricePlant);
             }
             else if (Input.GetMouseButtonDown(0) && hit.collider.GetComponent<Tile>())
             {
@@ -103,19 +98,19 @@ public class GameManager : ManualSingletonMono<GameManager>
                 currentPlant = null;
             }
         }
-        if(hit.collider && curShovel)
+        if (hit.collider && curShovel)
         {
             curShovel.transform.position = hit.collider.gameObject.transform.position;
-            if(Input.GetMouseButtonDown(0) && !hit.collider.GetComponent<Tile>().HasPlant)
+            if (Input.GetMouseButtonDown(0) && !hit.collider.GetComponent<Tile>().HasPlant)
             {
                 Destroy(curShovel);
             }
         }
         RaycastHit2D hitShovel = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, plantMask);
-        if(hitShovel.collider && curShovel != null)
+        if (hitShovel.collider && curShovel != null)
         {
             curShovel.transform.position = hitShovel.collider.gameObject.transform.position;
-            if (Input.GetMouseButtonDown(0) && hitShovel.collider.gameObject.layer == 9 )
+            if (Input.GetMouseButtonDown(0) && hitShovel.collider.gameObject.layer == 9)
             {
                 Destroy(curShovel);
                 Destroy(hitShovel.collider.gameObject);
@@ -123,36 +118,9 @@ public class GameManager : ManualSingletonMono<GameManager>
             }
         }
     }
-
-    private void UpdateSunAmount()
+    private void ReceiPrice(int price)
     {
-        sunText.text = SOAssetReg.Instance.MainSaveData.Value.SunAmount.ToString();
-    } 
-    private void WinGame()
-    {
-        AudioManager.Instance.musicSource.Stop();
-        AudioManager.Instance.PlaySFX("winSound");
-        winScreen.SetActive(true);
-    }
-    private void LoseGame()
-    {
-        Time.timeScale = 0;
-        loseScreen.SetActive(true);
-    }
-
-    private void receiData(string namedata)
-    {
-        var data = namedata.Split("_");
-        PricePlant = int.Parse(data[0]);
-        currentPlant = listPlant.Find(s => s.name == data[1]);
-        currentPlantSprite = listSpritePlant.Find(s => s.name == data[2]);
-        BuyPlant();
-    }
-    private void receiShovel(string nameShovel)
-    {
-        var data = nameShovel.Split("_");
-        currentShovel = listShovel.Find(s => s.name == data[1]);
-        selectSholve();
+        PricePlant = price;
     }
 
 

@@ -46,15 +46,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dontDestroyOnload: 1
-  winScreen: {fileID: 0}
+  updateSun: {fileID: 11400000, guid: 593a9f7d468e00c449bd37a070039924, type: 2}
+  SunPrice: {fileID: 11400000, guid: 6cf07528a1171854799e6776cf711ef1, type: 2}
+  GameObjectName: {fileID: 11400000, guid: 97b7237d4aaf72245a52027e8168420a, type: 2}
+  ShovelName: {fileID: 11400000, guid: 31b4c0ad06368f74a86cf3d4d415af47, type: 2}
   tileMask:
     serializedVersion: 2
     m_Bits: 64
   plantMask:
     serializedVersion: 2
     m_Bits: 512
-  loseScreen: {fileID: 0}
-  sunText: {fileID: 0}
   listPlant:
   - {fileID: 2994840837236689037, guid: df1e35337d9d6f743bdcd8979e6987be, type: 3}
   - {fileID: 2994840837236689037, guid: 55a9729b37ac4984e9916b65c2847315, type: 3}

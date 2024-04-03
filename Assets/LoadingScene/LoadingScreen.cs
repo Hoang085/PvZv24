@@ -62,6 +62,6 @@ public class LoadingScreen : ManualSingletonMono<LoadingScreen>
     {
         Loading = false;
         gameObject.SetActive(false);
-        UIManager.Instance.OnActive(true);
+        //UIManager.Instance.OnActive(true);
     }
 }

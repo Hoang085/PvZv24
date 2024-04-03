@@ -187,13 +187,29 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1423280114}
     - target: {fileID: 4648934435313883479, guid: 8cb42b39b5f873a429a11c298f5571df, type: 3}
+      propertyPath: SunPrice
+      value: 
+      objectReference: {fileID: 11400000, guid: 6cf07528a1171854799e6776cf711ef1, type: 2}
+    - target: {fileID: 4648934435313883479, guid: 8cb42b39b5f873a429a11c298f5571df, type: 3}
+      propertyPath: updateSun
+      value: 
+      objectReference: {fileID: 11400000, guid: 57d190e566c36274397a1f4a2d8dbab1, type: 2}
+    - target: {fileID: 4648934435313883479, guid: 8cb42b39b5f873a429a11c298f5571df, type: 3}
       propertyPath: winScreen
       value: 
       objectReference: {fileID: 1336770883}
     - target: {fileID: 4648934435313883479, guid: 8cb42b39b5f873a429a11c298f5571df, type: 3}
+      propertyPath: ShovelName
+      value: 
+      objectReference: {fileID: 11400000, guid: 31b4c0ad06368f74a86cf3d4d415af47, type: 2}
+    - target: {fileID: 4648934435313883479, guid: 8cb42b39b5f873a429a11c298f5571df, type: 3}
       propertyPath: loseScreen
       value: 
       objectReference: {fileID: 1285065229}
+    - target: {fileID: 4648934435313883479, guid: 8cb42b39b5f873a429a11c298f5571df, type: 3}
+      propertyPath: GameObjectName
+      value: 
+      objectReference: {fileID: 11400000, guid: 97b7237d4aaf72245a52027e8168420a, type: 2}
     - target: {fileID: 4648934435313883479, guid: 8cb42b39b5f873a429a11c298f5571df, type: 3}
       propertyPath: dontDestroyOnload
       value: 0
@@ -204,7 +220,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8870135783540717548, guid: 8cb42b39b5f873a429a11c298f5571df, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -805,12 +821,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManagerTest
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8870135783540717548, guid: 8cb42b39b5f873a429a11c298f5571df, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 4648934435313883479, guid: 8cb42b39b5f873a429a11c298f5571df, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8870135783540717548, guid: 8cb42b39b5f873a429a11c298f5571df, type: 3}
-      insertIndex: 2
+      insertIndex: 1
       addedObject: {fileID: 925238379}
   m_SourcePrefab: {fileID: 100100000, guid: 8cb42b39b5f873a429a11c298f5571df, type: 3}
 --- !u!1 &925238378 stripped

@@ -47,6 +47,8 @@ MonoBehaviour:
   dontDestroyOnload: 0
   ZombieMaxEvent: {fileID: 11400000, guid: a44db0c7f30c53d4ea315a8de706128e, type: 2}
   ZombieDeath: {fileID: 11400000, guid: 761d183d9801621408faa39a2533dcee, type: 2}
+  ZombieSpawnCountEvent: {fileID: 11400000, guid: cfd9a863dce678d4d90aa68df4759b7f, type: 2}
+  WinEvent: {fileID: 11400000, guid: d8911e88b671b1141b82d60930e1c18f, type: 2}
   SpawnPoint:
   - {fileID: 0}
   - {fileID: 0}

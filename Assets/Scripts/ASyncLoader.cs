@@ -5,14 +5,18 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEditor;
 using System;
+using ScriptableObjectArchitecture;
 
 public class ASyncLoader : MonoBehaviour
 {
+    public GameEventBase<int> ZombieDeath;
+
     private void LoadLevelBtn()
     {
         SceneManager.LoadSceneAsync($"Level {SOAssetReg.Instance.MainSaveData.Value.LevelCurrent}");
-        UIManager.Instance.gameObject.SetActive(true);
         AudioManager.Instance.PlayMusic("Theme");
+        ZombieDeath.Raise(0);
+        UIManager.Instance.OnActive(true);
     }
     private void Start()
     {
@@ -20,9 +24,7 @@ public class ASyncLoader : MonoBehaviour
     }
     private void NewGame()
     {
-        SOAssetReg.Instance.MainSaveData.Value.ZombieMax = 0;
         SOAssetReg.Instance.MainSaveData.Value.LevelCurrent = 1;
-        SOAssetReg.Instance.MainSaveData.Value.ZombieDeath = 0;
         LoadLevelBtn();
     }
 
