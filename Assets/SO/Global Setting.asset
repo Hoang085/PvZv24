@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Global Setting
   m_EditorClassIdentifier: 
   isDebug: 0
+  isTest: 1
   SoAssetReg: {fileID: 11400000, guid: 7a2e54150c597ef4b8b280ab9828ff49, type: 2}

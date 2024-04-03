@@ -7,14 +7,14 @@ using UnityEngine.UI;
 
 public class ZombieSpawner : ManualSingletonMono<ZombieSpawner>
 {
-    public GameEventBase<int> ZombieMax;
+    public IntGameEvent ZombieMaxEvent;
     public GameEventBase<int> ZombieDeath;
 
     [SerializeField] private Transform[] SpawnPoint;
     [SerializeField] private GameObject zombie;
 
     public ZombieTypeProb[] zombieTypes;
-    public int zombieMax;
+    public int zombieMax=0;
 
     private List<ZombieType> probList = new List<ZombieType>();
     private int zombiesSpawned;
@@ -23,7 +23,7 @@ public class ZombieSpawner : ManualSingletonMono<ZombieSpawner>
     private void Start()
     {
         ZombieDeath.Raise(0);
-        ZombieMax.Raise(zombieMax);
+        ZombieMaxEvent.Raise(5);
         InvokeRepeating(nameof(SpawnZombie), 15, zombieDelay);
 
         foreach (ZombieTypeProb zom in zombieTypes)

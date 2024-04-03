@@ -11,58 +11,38 @@ using UnityEngine.EventSystems;
 public class GameManagerTest : ManualSingletonMono<GameManagerTest>
 {
     public GameEventBase<int> updateSun;
-    public GameEventBase<int> SunCurrent;
     public GameEventBase<int> SunPrice;
     public GameEventBase<string> GameObjectName;
     public GameEventBase<string> ShovelName;
-    public GameEventBase WinEvent;
-    public GameEventBase LoseEvent;
 
-    [SerializeField]
-    private GameObject winScreen;
     [SerializeField]
     private LayerMask tileMask;
     [SerializeField]
     private LayerMask plantMask;
-    [SerializeField]
-    private GameObject loseScreen;
-    [SerializeField]
-    private TextMeshProUGUI sunText;
 
     private GameObject currentPlant;
     private Sprite currentPlantSprite;
-    private int PricePlant;
     private GameObject currentShovel;
     private GameObject curPlant;
     private GameObject curShovel;
+    private int PricePlant;
 
-    [SerializeField] private int currentSuns;
     [SerializeField] private List<GameObject> listPlant;
     [SerializeField] private List<Sprite> listSpritePlant;
     [SerializeField] private List<GameObject> listShovel;
 
-    private void Start()
-    {
-        sunText.text = currentSuns.ToString();
-    }
     private void OnEnable()
     {
-        updateSun.AddListener(UpdateSunAmount);
-        GameObjectName.AddListener(ReceiPlant);
         SunPrice.AddListener(ReceiPrice);
+        GameObjectName.AddListener(ReceiPlant);
         ShovelName.AddListener(ReceiShovel);
-        WinEvent.AddListener(WinGame);
-        LoseEvent.AddListener(LoseGame);
     }
     
     private void OnDisable()
     {
-        updateSun.RemoveListener(UpdateSunAmount);
-        GameObjectName.RemoveListener(ReceiPlant);
         SunPrice.RemoveListener(ReceiPrice);
+        GameObjectName.RemoveListener(ReceiPlant);
         ShovelName.RemoveListener(ReceiShovel);
-        WinEvent.RemoveListener(WinGame);
-        LoseEvent.RemoveListener(LoseGame);
     }
 
     public void MakeObject()
@@ -70,10 +50,6 @@ public class GameManagerTest : ManualSingletonMono<GameManagerTest>
         Vector2 mousePos = Input.mousePosition;
         Vector2 objPos = Camera.main.ScreenToWorldPoint(mousePos);
         curPlant = Instantiate(currentPlant, objPos, Quaternion.identity);
-    }
-    private void ReceiPrice(int price)
-    {
-        PricePlant = price;
     }
     private void ReceiPlant(string data)
     {
@@ -109,7 +85,7 @@ public class GameManagerTest : ManualSingletonMono<GameManagerTest>
                 curPlant = null;
                 currentPlantSprite = null;
                 currentPlant = null;
-                UpdateSunAmount(-PricePlant);
+                updateSun.Raise(-PricePlant);
             }
             else if (Input.GetMouseButtonDown(0) && hit.collider.GetComponent<Tile>())
             {
@@ -142,22 +118,9 @@ public class GameManagerTest : ManualSingletonMono<GameManagerTest>
             }
         }
     }
+    private void ReceiPrice(int price)
+    {
+        PricePlant = price;
+    }
 
-    private void UpdateSunAmount(int count)
-    {
-        currentSuns += count;
-        SunCurrent.Raise(currentSuns);
-        sunText.text = currentSuns.ToString();
-    }
-    private void WinGame()
-    {
-        AudioManager.Instance.musicSource.Stop();
-        AudioManager.Instance.PlaySFX("winSound");
-        winScreen.SetActive(true);
-    }
-    private void LoseGame()
-    {
-        Time.timeScale = 0;
-        loseScreen.SetActive(true);
-    }
 }

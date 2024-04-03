@@ -108,7 +108,7 @@ MonoBehaviour:
   LoseEvent: {fileID: 11400000, guid: bd32347261aa4014caf3163af273597e, type: 2}
   WinEvent: {fileID: 11400000, guid: d8911e88b671b1141b82d60930e1c18f, type: 2}
   ZombieDeath: {fileID: 11400000, guid: 761d183d9801621408faa39a2533dcee, type: 2}
-  ZombieMax: {fileID: 11400000, guid: a44db0c7f30c53d4ea315a8de706128e, type: 2}
+  ZombieMaxEvent: {fileID: 11400000, guid: a44db0c7f30c53d4ea315a8de706128e, type: 2}
   targetPlant: {fileID: 0}
   type: {fileID: 11400000, guid: d895aa8f6ea9d864a97279d429680c3f, type: 2}
 --- !u!222 &4770035332713209954

@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dontDestroyOnload: 0
-  ZombieMax: {fileID: 11400000, guid: a44db0c7f30c53d4ea315a8de706128e, type: 2}
+  ZombieMaxEvent: {fileID: 11400000, guid: a44db0c7f30c53d4ea315a8de706128e, type: 2}
   ZombieDeath: {fileID: 11400000, guid: 761d183d9801621408faa39a2533dcee, type: 2}
   SpawnPoint:
   - {fileID: 0}

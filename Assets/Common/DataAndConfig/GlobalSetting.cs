@@ -10,6 +10,7 @@ using UnityEngine;
 public class GlobalSetting : GlobalConfig<GlobalSetting>
 {
     public bool isDebug;
+    public bool isTest;
     public SOAssetReg SoAssetReg;
 
     /*[BoxGroup("Game Config")] [TitleGroup("Game Config/Level Config")]

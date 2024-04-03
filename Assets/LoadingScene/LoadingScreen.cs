@@ -12,20 +12,27 @@ public class LoadingScreen : ManualSingletonMono<LoadingScreen>
     private float minLoadTime = 2f;
 
     public bool Loading { get; private set; }
-
+     
     public void Start()
     {
-        UIManager.Instance.gameObject.SetActive(false);
-        LoadScene("Main Menu");
+        if (GlobalSetting.Instance.isTest)
+        {
+            LoadScene("test2");
+        }
+        else
+        {
+            LoadScene("Main Menu");
+        }
     }
     public void LoadScene(string sceneName, Func<bool> launchCondition = null)
     {
         StartCoroutine(LoadSceneRoutine(sceneName, launchCondition));
     }
 
-        IEnumerator LoadSceneRoutine(string sceneName, Func<bool> launchCondition)
-        {
-            if (Loading) yield break;
+    IEnumerator LoadSceneRoutine(string sceneName, Func<bool> launchCondition)
+    {
+        UIManager.Instance.OnActive(false);
+        if (Loading) yield break;
             Loading = true;
             canvas.gameObject.SetActive(true);
 
@@ -48,11 +55,13 @@ public class LoadingScreen : ManualSingletonMono<LoadingScreen>
             }
 
             ao.allowSceneActivation = true;
-        }
+        OnLoadingFinished();
+    }
 
-        public void OnLoadingFinished()
-        {
-            Loading = false;
-            canvas.gameObject.SetActive(false);
-        }
+    public void OnLoadingFinished()
+    {
+        Loading = false;
+        gameObject.SetActive(false);
+        UIManager.Instance.OnActive(true);
+    }
 }
